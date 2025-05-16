@@ -3,31 +3,19 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const prospectSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  height: {
-    type: String
-  },
-  age: {
-    type: Number,
-    required: true,
-  },
-  wingspan: {
-    type: String,
-  },
+  //For player object make sure it is specific to the player: Name, age, wingspan, height, etc)
+  player: [{
+    name: String,
+      age: Number,
+      height: String,
+      wingspan : String,
+      weight: Number, 
+  }],
   team: {
     type: String,
-    required: true,
   },
   position: {
-    type: String, //Might come back and change this to something I can 
-    // reference for a search feature.
-    required: true,
-  },
-  weight: {
-    type: Number,
+    type: String, //Might come back and learn how to tag.
   },
   rating: {
     type: Number, //Might come back and change to Int
@@ -44,7 +32,7 @@ const prospectSchema = new Schema({
   boards: {
     type: Schema.Types.ObjectId,
     ref: 'Board'
-  },
+  }, //This logic should be inverse for boardSchema - don't forget
 }, {
   // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true

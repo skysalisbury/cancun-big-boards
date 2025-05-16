@@ -14,7 +14,7 @@
       <% if (user) { %>
         <a href="/prospects/new">ADD NBA PROSPECT</a>
         <a href="/auth/sign-out">SIGN OUT</a>
-        <span><%= user.name %></span>
+        <span><%= user.username || user.name %></span>
       <% } else { %>
         <a href="/auth/sign-up">SIGN UP</a>
         <a href="/auth/sign-in">SIGN IN</a>

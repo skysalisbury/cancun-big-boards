@@ -1,0 +1,13 @@
+<%- include('../partials/header.ejs') %>
+<h1>New NBA Prospect</h1>
+
+<form action="/prospects" method="POST">
+    <label for="name">Player:</label>
+  <input type="text" name="name" id="name" />
+
+  <label for="description">Description:</label>
+  <textarea name="description" id="description"></textarea>
+
+  <button type="submit">Add Player</button>
+</form> 
+<%- include('../partials/footer.ejs') %>

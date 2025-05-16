@@ -1,6 +1,19 @@
 <%- include('../partials/header.ejs') %>
 
-
+<h1>NBA PROSPECTS LIST</h1>
+    <% if (prospects.length > 0) { %>
+     <ul>
+       <% prospects.forEach(prospect => { %>
+         <li>
+           <a href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
+         </li>
+       <% }) %>
+     </ul>
+   <% } else { %>
+     <p>There Are No NBA Prospects...yet</p>
+   <% } %>
+   <a href="/prospects/new">Add New NBA Prospect</a>
+ </body>
 
 
 
