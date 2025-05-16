@@ -36,6 +36,9 @@ router.get('/new', ensureLoggedIn, async (req, res) => {
 //POST /prospects
 router.post('/', ensureLoggedIn, async (req, res) => {
   try {
+    if (!req.body.imageUrl) {
+      delete req.body.imageUrl;
+    }
     const newPlayer = new Prospect(req.body);
     await newPlayer.save();
     res.redirect('/prospects');
@@ -60,6 +63,22 @@ router.get('/:prospectId', async (req, res) => {
     await Prospect.findByIdAndDelete(req.params.id);
     res.redirect('/prospects');
   });
+
+  //EDIT ACTION
+  //GET /prospects/:id/edit
+  router.get('/:id/edit', async (req, res) => {
+    const prospect = await Prospect.findById(req.params.id);
+    res.render('prospects/edit.ejs', { prospect });
+  });
+
+  //UPDATE ACTION
+  //PUT /prospects/:id
+router.put('/:id', async (req, res) => {
+  const prospect = await Prospect.findById(req.params.id);
+  Object.assign(prospect, req.body);
+  await prospect.save();
+  res.redirect(`/prospects/${prospect._id}`);
+});
 
 
   module.exports = router;

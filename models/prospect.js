@@ -28,8 +28,9 @@ const prospectSchema = new Schema({
   rating: {
     type: Number, //Might come back and change to Int
   },
-  imageURL: {
+  image: {
     type: String,
+    default: 'https://tosomeimage.png',
   },
   stats: {
     type: String,

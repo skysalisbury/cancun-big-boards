@@ -1,6 +1,6 @@
 <%- include('../partials/header.ejs') %>
-
- <h1><%= prospect.name %></h1>
+<img class="prospect-img" src="<%= prospect.image %>" alt="Prospect Image">
+  <h1><%= prospect.name %></h1>
   <p><strong><%= prospect.age%>yrs <%= prospect.origin %></strong></p>
   <p><strong><%= prospect.height %>ft, <%= prospect.weight %>lbs, Wingspan of <%= prospect.wingspan %>ft</strong></p>
   <h3><%= prospect.team %> <%= prospect.position %></h3>

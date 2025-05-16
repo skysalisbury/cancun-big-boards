@@ -1,15 +1,22 @@
 <%- include('../partials/header.ejs') %>
-<h1>New NBA Prospect</h1>
 
-<form action="/prospects" method="POST">
- <div>
-  <label for="image">Image URL</label>
-  <input type="text" id="image" name="image" />
-</div>
-    <label for="name">Name:</label>
-  <input type="text" name="name" id="name" />
+
+
+<h1>Edit Player</h1>
+
+<form action="/prospects/<%= prospect._id %>?_method=PUT" method="POST">
     
-   <label for="origin">Place of Origin:</label>
+  <label for="image">Image:</label>
+    <input
+      type="text"
+      id="image"
+      name="image"
+      value="<%= prospect.image %>"/>
+
+    <label for="name">Name:</label>
+  <input type="text" name="name" id="name" value="<%= prospect.name %>"/>
+
+  <label for="origin">Place of Origin:</label>
   <input type="text" name="origin" id="origin" />
 
     <label for="age">Age:</label>
@@ -36,6 +43,11 @@
   <label for="description">Description:</label>
   <textarea name="description" id="description"></textarea>
 
-  <button type="submit">Add Player</button>
-</form> 
+  <button type="submit">UPDATE PLAYER</button>
+</form>
+
+
+
+
+
 <%- include('../partials/footer.ejs') %>
