@@ -9,6 +9,11 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require('express-session');
 
+
+//Const Controllers and Authentication
+const ensureLoggedIn = require('./middleware/ensure-logged-in.js');
+const addUserToReqAndLocals = require('./middleware/add-user-to-req-and-locals.js');
+
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT || 3000;
 
@@ -55,8 +60,8 @@ app.get('/', (req, res) => {
 // appended to the "starts with" path
 app.use('/auth', require('./controllers/auth'));
 
-// Update the unicorns data resource with your "main" resource
-app.use('/unicorns', require('./controllers/unicorns'));
+// Update the prospects data resource with your "main" resource
+app.use('/prospects', require('./controllers/prospects'));
 
 
 app.listen(port, () => {

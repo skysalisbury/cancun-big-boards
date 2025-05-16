@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Prospect = require('../models/prospect');
 
 // Middleware used to protect routes that need a logged in user
 const ensureLoggedIn = require('../middleware/ensure-logged-in');
@@ -10,16 +11,16 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // ALL paths start with '/unicorns'
 
 // index action
-// GET /unicorns
+// GET /prospects
 // Example of a non-protected route
 router.get('/', (req, res) => {
-  res.send('List of all unicorns - not protected');
+  res.send('List of all prospects - not protected');
 });
 
-// GET /unicorns/new
+// GET /prospects/new
 // Example of a protected route
 router.get('/new', ensureLoggedIn, (req, res) => {
-  res.send('Create a unicorn!');
+  res.send('Add a new NBA Prospect!');
 });
 
 module.exports = router;
