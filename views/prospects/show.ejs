@@ -1,13 +1,18 @@
 <%- include('../partials/header.ejs') %>
 
  <h1><%= prospect.name %></h1>
-    <p><strong>Description:</strong> <%= prospect.description %></p>
-    <h3>Ingredients:</h3>
-    <ul>
+  <p><strong><%= prospect.age%>yrs <%= prospect.origin %></strong></p>
+  <p><strong><%= prospect.height %>ft, <%= prospect.weight %>lbs, Wingspan of <%= prospect.wingspan %>ft</strong></p>
+  <h3><%= prospect.team %> <%= prospect.position %></h3>
+  <h4><strong>Description:</strong> <%= prospect.description %></h4>
+
+  <% if (typeof prospects !== 'undefined' && prospects.length > 0) { %>
+      <ul>
         <% prospects.forEach(prospect => { %>
             <li><%= prospect.name %></li>
         <% }) %>
-    </ul>
+    <% } %>
+      </ul>
     <a href="/prospects/<%= prospect._id %>/edit">Edit Player</a>
     <form action="/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Player</button>

@@ -37,6 +37,9 @@ const prospectSchema = new Schema({
   description: {
     type: String,
   },
+  origin: {
+    type: String,
+  },
   boards: {
     type: Schema.Types.ObjectId,
     ref: 'Board'

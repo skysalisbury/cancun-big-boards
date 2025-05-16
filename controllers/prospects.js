@@ -50,8 +50,16 @@ router.post('/', ensureLoggedIn, async (req, res) => {
 //Show action
 //GET /prospects/:id
 router.get('/:prospectId', async (req, res) => {
-  const prospects = await Prospect.findById(req.params.prospectId);
-  res.render('prospects/show.ejs', { prospects });
-})
+    const prospect = await Prospect.findById(req.params.prospectId);
+    res.render('prospects/show.ejs', { prospect });
+  })
 
-module.exports = router;
+  //Delete Action
+  //Delete /prospects/:id
+  router.delete('/:id', async (req, res) => {
+    await Prospect.findByIdAndDelete(req.params.id);
+    res.redirect('/prospects');
+  });
+
+
+  module.exports = router;
