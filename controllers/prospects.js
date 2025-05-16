@@ -21,9 +21,10 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // Example of a non-protected route
 router.get('/', async (req, res) => {
   const prospects = await Prospect.find({});
-  res.render('prospects/index.ejs', { prospects });
+  console.log(res.render('prospects/index.ejs', { prospects }));
 });
 
+//New Action 
 // GET /prospects/new
 // Example of a protected route
 router.get('/new', ensureLoggedIn, async (req, res) => {
@@ -31,8 +32,9 @@ router.get('/new', ensureLoggedIn, async (req, res) => {
   res.render('prospects/new.ejs', { user: req.currentUser, prospects});
 });
 
+//Create Action
 //POST /prospects
-router.post('/', async (req, res) => {
+router.post('/', ensureLoggedIn, async (req, res) => {
   try {
     const newPlayer = new Prospect(req.body);
     await newPlayer.save();
@@ -44,5 +46,12 @@ router.post('/', async (req, res) => {
   }
 
 });
+
+//Show action
+//GET /prospects/:id
+router.get('/:prospectId', async (req, res) => {
+  const prospects = await Prospect.findById(req.params.prospectId);
+  res.render('prospects/show.ejs', { prospects });
+})
 
 module.exports = router;

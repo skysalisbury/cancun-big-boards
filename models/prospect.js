@@ -4,13 +4,21 @@ const Schema = mongoose.Schema;
 
 const prospectSchema = new Schema({
   //For player object make sure it is specific to the player: Name, age, wingspan, height, etc)
-  player: [{
-    name: String,
-      age: Number,
-      height: String,
-      wingspan : String,
-      weight: Number, 
-  }],
+  name: {
+      type: String,
+  },  
+  age: {  
+      type: Number,
+  },
+  height: {    
+      type: String,
+  },
+  wingspan: {    
+      type: String,
+  },
+  weight: {
+      type: Number, 
+  },
   team: {
     type: String,
   },

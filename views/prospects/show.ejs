@@ -1,0 +1,23 @@
+<%- include('../partials/header.ejs') %>
+
+ <h1><%= prospect.name %></h1>
+    <p><strong>Description:</strong> <%= prospect.description %></p>
+    <h3>Ingredients:</h3>
+    <ul>
+        <% prospects.forEach(prospect => { %>
+            <li><%= prospect.name %></li>
+        <% }) %>
+    </ul>
+    <a href="/prospects/<%= prospect._id %>/edit">Edit Player</a>
+    <form action="/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Player</button>
+    </form>
+
+
+
+
+
+
+
+
+<%- include('../partials/footer.ejs') %>
