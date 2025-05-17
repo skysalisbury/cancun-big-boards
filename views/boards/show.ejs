@@ -1,0 +1,41 @@
+<%- include('../partials/header.ejs') %>
+ <% if (typeof boards !=='undefined' && boards.length> 0) { %>
+  <ul>
+   <% board.prospects.forEach(prospect=> { %>
+    <li>
+     <%= prospect.name %>
+    </li>
+    <% }) %>
+     <% } %>
+  </ul>
+  <% if (user._id.toString() === board.createdBy._id.toString()) { %>
+  <label for="prospects">Select Prospect for Board</label>
+  <select name="prospects" id="prospects">
+   <% prospects.forEach(prospect=> { %>
+    <option value="<%= prospect._id%>">
+     <span>
+      <%= prospect.name %>
+     </span>
+     <span>
+      <form action="/boards/<%= board._id %>/prospect/<%= prospect._id %>">
+       <button type="submit"></button>
+      </form>
+     </span>
+    </option>
+    <%})%>
+  </select>
+   <a href="/boards/<%= board._id %>/edit">Edit Board</a>
+   <form action="/boards/<%= board._id %>?_method=DELETE" method="POST">
+     <button type="submit">Delete Board</button>
+   </form>
+ <% } %>
+ 
+
+
+
+
+
+
+
+
+    <%- include('../partials/footer.ejs') %>

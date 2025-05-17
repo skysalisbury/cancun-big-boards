@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 const User = require('../models/user');
 
 const boardSchema = new Schema({
-  boardPlayers: {
+  prospects: [{
     type: Schema.Types.ObjectId,
     ref: 'Prospect',
-  },
+  }],
   title: {
     type: String
   },

@@ -4,8 +4,7 @@
     <% if (boards.length > 0) { %>
      <ul>
        <% boards.forEach(board => { %>
-         <li style="list-style-type: none;">
-           <!-- <img style="width: 200px; margin-right: 20px" src="<%= prospect.image %>" alt="<%= prospect.name %>"> -->
+         <li>
            <a href="/boards/<%= board._id %>"><%= board.title %></a>
          </li>
        <% }) %>
