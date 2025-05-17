@@ -1,15 +1,17 @@
 <%- include('../partials/header.ejs') %>
-<% if (board.prospects && board.prospects.length > 0) { %>
- <ul>
-   <% board.prospects.forEach(prospect => { %>
-     <li><%= prospect.name %></li>
-   <% }) %>
- </ul>
-<% } else { %>
- <p>No prospects on this board yet.</p>
-<% } %>
-
-  <% if (user._id.toString() === board.createdBy._id.toString()) { %>
+<h1>Edit Board</h1>
+ <% if (typeof boards !=='undefined' && boards.length> 0) { %>
+  <ul>
+   <% board.prospects.forEach(prospect=> { %>
+    <li>
+     <%= prospect.name %>
+    </li>
+    <% }) %>
+     <% } %>
+  </ul>
+  <% if (user._id.toString()===board.createdBy._id.toString()) { %>
+    <form action="/boards/<%= board._id %>?_method=PUT" method="POST"></form>
+    <button type="submit">UPDATE BOARD</button>
    <form action="/boards/<%= board._id %>/prospects" method="POST"></form>
    <label for="prospects">Select Prospect for Board</label>
    <select name="prospects" id="prospects">
@@ -22,9 +24,6 @@
      <%})%>
    </select>
    <button type="submit">Add Player to Board</button> <!-- put lines 12-23 in edit.ejs make sure to copy lines 11 and 28 as well-->
-   <a href="/boards/<%= board._id %>/edit">Edit Board</a>
-   <form action="/boards/<%= board._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete Board</button>
    </form>
    <% } %>
 

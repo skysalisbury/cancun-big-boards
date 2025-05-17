@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Prospect = require('../models/prospect');
+const Board = require('../models/board');
 
 // Middleware used to protect routes that need a logged in user
 const ensureLoggedIn = require('../middleware/ensure-logged-in');
@@ -21,7 +22,7 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // Example of a non-protected route
 router.get('/', async (req, res) => {
   const prospects = await Prospect.find({});
-  res.render('prospects/index.ejs', { prospects });
+  res.render('prospects/index.ejs', { prospects, user: req.user });
 });
 
 //New Action 
@@ -53,17 +54,21 @@ router.post('/', async (req, res) => {
 //Show action
 //GET /prospects/:id
 router.get('/:prospectId', ensureLoggedIn, async (req, res) => {
-    const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
-    console.log(prospect.createdBy._id.toString());
-    console.log(req.user._id.toString());
-    res.render('prospects/show.ejs', { prospect });
-  })
+  const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
+  const boards = await Board.find({ createdBy: req.user._id });
+
+  res.render('prospects/show.ejs', {prospect, user: req.user, boards });
+});
+
+  //Show Action for add player to board
+  //GET /prospects/:prospectId
   //Delete Action
   //Delete /prospects/:id
   router.delete('/:id', async (req, res) => {
     await Prospect.findByIdAndDelete(req.params.id);
     res.redirect('/prospects');
   });
+
 
   //EDIT ACTION
   //GET /prospects/:id/edit
@@ -80,6 +85,7 @@ router.put('/:id', async (req, res) => {
   await prospect.save();
   res.redirect(`/prospects/${prospect._id}`);
 });
+
 
 
 //The end all be all idea is that only Moderators should be able to 

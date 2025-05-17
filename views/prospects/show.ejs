@@ -6,19 +6,30 @@
   <h3><%= prospect.team %> <%= prospect.position %></h3>
   <h4><strong>Description:</strong> <%= prospect.description %></h4>
 
-  <% if (typeof prospects !== 'undefined' && prospects.length > 0) { %>
-      <ul>
-        <% prospects.forEach(prospect => { %>
-            <li><%= prospect.name %></li>
-        <% }) %>
-    <% } %>
-      </ul>
       <% if (user._id.toString() === prospect.createdBy._id.toString()) { %>
     <a href="/prospects/<%= prospect._id %>/edit">Edit Player</a>
     <form action="/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Player</button>
     </form>
   <% } %>
+
+<!-- Add Player to Board Form -->
+<% if (boards.length > 0) { %>
+  <form action="/boards/add-prospect" method="POST">
+    <input type="hidden" name="prospectId" value="<%= prospect._id %>">
+    <label for="boardId">Add to Board:</label>
+    <select name="boardId" id="boardId">
+      <% boards.forEach(board => { %>
+        <option value="<%= board._id %>"><%= board.title %></option>
+      <% }) %>
+    </select>
+    <button type="submit">Add Player to Board</button>
+  </form>
+<% } else { %>
+  <p>You don't have any boards yet. <a href="/boards/new">Create one</a></p>
+<% } %>
+
+
 
 
 

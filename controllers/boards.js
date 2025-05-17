@@ -11,10 +11,19 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // ALL paths start with '/unicorns'
 
 // index action
-// GET /prospects
-// Example of a non-protected route
-router.get('/', ensureLoggedIn, async (req, res) => {
- const boards = await Board.find({});
+// GET /boards
+// See all boards (community boards) or see my boards (user specific)
+router.get('/', async (req, res) => {
+ let boards;
+ 
+ if (req.query.user) {
+   // Only show boards created by the logged-in user
+   boards = await Board.find({ createdBy: req.query.user });
+ } else {
+   // Show all community boards
+   boards = await Board.find({});
+ }
+
  res.render('boards/index.ejs', { boards });
 });
 
@@ -42,26 +51,60 @@ router.post('/', async (req, res) => {
 
 });
 
-//Show action
+//Show action 
 //POST /boards/:boardId/prospects/:prospectId
 router.post('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
  req.body.createdBy = req.user._id;
  const board = await Board.findById(req.params.boardId).populate('createdBy').exec();
  const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
- board.prospects.push(prospect._id);
- await board.save();
+ if (!board.prospects.includes(prospectId)) {
+  board.prospects.push(prospectId);
+  await board.save();
+ }
  // console.log(prospect.createdBy._id.toString());
  // console.log(req.user._id.toString());
- res.redirect('boards/show.ejs', { board, prospect });
+ res.redirect(`/boards/${board._id}`);
 });
 
+//Show action for players on boards
 router.get('/:boardId', async (req, res) => {
-//finding board by boardId
-const board = await Board.findById(req.params.boardId)
-//find all prospects
-const prospects = await Prospect.find({});
- res.render('boards/show.ejs', { board, prospects });
+ const board = await Board.findById(req.params.boardId).populate('prospects').populate('createdBy');
+ const prospects = await Prospect.find({});
+ res.render('boards/show.ejs', { board, prospects, user: req.user });
 });
+
+// POST /boards/add-prospect
+//show/create action for players being added to boards 
+// POST/boards/:boardId/prospects/:prospectId
+//Will have to figure out how to remove in edit/update action
+router.post('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
+ try {
+  const { boardId, prospectId } = req.body;
+  const board = await Board.findById(boardId);
+
+  // Only allow adding to your own boards
+  if (!board.createdBy === req.user._id) {
+   return console.log('Not authorized');
+  }
+
+  if (!board.prospects.includes(prospectId)) {
+   board.prospects.push(prospectId);
+   await board.save();
+  }
+
+  res.redirect(`/boards/${board._id}`);
+ } catch (err) {
+  console.error(err);
+  res.redirect('/prospects');
+ }
+});
+
+//DELETE Action
+//DELETE /boards/:id
+// router.delete('/:boardId', async)
+
+
+
 
 
 module.exports = router;
