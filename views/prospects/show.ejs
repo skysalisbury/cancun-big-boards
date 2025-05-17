@@ -13,10 +13,12 @@
         <% }) %>
     <% } %>
       </ul>
+      <% if (user._id.toString() === prospect.createdBy._id.toString()) { %>
     <a href="/prospects/<%= prospect._id %>/edit">Edit Player</a>
     <form action="/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Player</button>
     </form>
+  <% } %>
 
 
 

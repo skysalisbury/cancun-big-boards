@@ -21,7 +21,7 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // Example of a non-protected route
 router.get('/', async (req, res) => {
   const prospects = await Prospect.find({});
-  console.log(res.render('prospects/index.ejs', { prospects }));
+  res.render('prospects/index.ejs', { prospects });
 });
 
 //New Action 
@@ -29,20 +29,20 @@ router.get('/', async (req, res) => {
 // Example of a protected route
 router.get('/new', ensureLoggedIn, async (req, res) => {
   const prospects = await Prospect.find({});
-  res.render('prospects/new.ejs', { user: req.currentUser, prospects});
+  res.render('prospects/new.ejs', { user: req.user, prospects});
 });
 
 //Create Action
 //POST /prospects
-router.post('/', ensureLoggedIn, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     if (!req.body.imageUrl) {
       delete req.body.imageUrl;
     }
+    req.body.createdBy = req.user._id;
     const newPlayer = new Prospect(req.body);
     await newPlayer.save();
-    res.redirect('/prospects');
-    // newRecipe. = req.currentUser._id;
+    res.redirect('/prospects');;
   } catch (error) {
     console.log(error);
     res.redirect('/');
@@ -52,11 +52,12 @@ router.post('/', ensureLoggedIn, async (req, res) => {
 
 //Show action
 //GET /prospects/:id
-router.get('/:prospectId', async (req, res) => {
-    const prospect = await Prospect.findById(req.params.prospectId);
+router.get('/:prospectId', ensureLoggedIn, async (req, res) => {
+    const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
+    console.log(prospect.createdBy._id.toString());
+    console.log(req.user._id.toString());
     res.render('prospects/show.ejs', { prospect });
   })
-
   //Delete Action
   //Delete /prospects/:id
   router.delete('/:id', async (req, res) => {
@@ -80,5 +81,12 @@ router.put('/:id', async (req, res) => {
   res.redirect(`/prospects/${prospect._id}`);
 });
 
+
+//The end all be all idea is that only Moderators should be able to 
+// delete, edit and update players
+
+//For delete, edit and Update I might have to comeback and 
+// ensureLoggedIn or have the user who created said prospect to be the 
+// only ones who can edit/update/delete them.
 
   module.exports = router;

@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
-  <title>Express Starter</title>
+  <title>CANCUN BIG BOARDS</title>
 </head>
 <body>
   <nav>
     <a href="/">🏠</a>
     <div>
       <a href="/prospects">ALL NBA PROSPECTS</a>
+      <a href="/boards">MY BIG BOARDS</a>
       <% if (user) { %>
-        <a href="/prospects/new">ADD NBA PROSPECT</a>
+        <!-- <a href="/prospects/new">ADD NBA PROSPECT</a> -->
+        <!-- <a href="/boards/new">ADD NEW BIG BOARD</a> -->
         <a href="/auth/sign-out">SIGN OUT</a>
         <span><%= user.username || user.name %></span>
       <% } else { %>

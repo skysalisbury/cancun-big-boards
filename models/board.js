@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 // shortcut variable
 const Schema = mongoose.Schema;
-
-const mongoose = require("mongoose");
-const user = require("./user");
-
+const User = require('../models/user');
 
 const boardSchema = new Schema({
   boardPlayers: {
@@ -18,10 +15,12 @@ const boardSchema = new Schema({
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-}, 
+  }
+}, {
   // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true
 });
+
 
 const Board = mongoose.model("Board", boardSchema);
 module.exports = Board;

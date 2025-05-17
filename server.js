@@ -62,6 +62,7 @@ app.use('/auth', require('./controllers/auth'));
 
 // Update the prospects data resource with your "main" resource
 app.use('/prospects', require('./controllers/prospects'));
+app.use('/boards', require('./controllers/boards'));
 
 
 app.listen(port, () => {

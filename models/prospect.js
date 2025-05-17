@@ -41,10 +41,10 @@ const prospectSchema = new Schema({
   origin: {
     type: String,
   },
-  boards: {
+  createdBy: {
     type: Schema.Types.ObjectId,
-    ref: 'Board'
-  }, //This logic should be inverse for boardSchema - don't forget
+    ref: 'User'
+  },
 }, {
   // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true
