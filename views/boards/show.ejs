@@ -2,7 +2,10 @@
 <% if (board.prospects && board.prospects.length > 0) { %>
  <ul>
    <% board.prospects.forEach(prospect => { %>
-     <li><%= prospect.name %></li>
+     <li>
+       <img src="<%= prospect.image %>" alt="<%= prospect.name %>" style="width: 100px; height: auto;" />
+       <strong><%= prospect.name %></strong> - <%= prospect.position %> from <%= prospect.team %>
+     </li>
    <% }) %>
  </ul>
 <% } else { %>

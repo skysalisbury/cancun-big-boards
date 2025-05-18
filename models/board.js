@@ -15,7 +15,10 @@ const boardSchema = new Schema({
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-  }
+  },
+  evaluation: {
+    type: String,
+  },
 }, {
   // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true
