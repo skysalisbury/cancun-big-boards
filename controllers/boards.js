@@ -51,21 +51,6 @@ router.post('/', async (req, res) => {
 
 });
 
-//Show action 
-//POST /boards/:boardId/prospects/:prospectId
-router.post('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
- req.body.createdBy = req.user._id;
- const board = await Board.findById(req.params.boardId).populate('createdBy').exec();
- const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
- if (!board.prospects.includes(prospectId)) {
-  board.prospects.push(prospectId);
-  await board.save();
- }
- // console.log(prospect.createdBy._id.toString());
- // console.log(req.user._id.toString());
- res.redirect(`/boards/${board._id}`);
-});
-
 //Show action for players on boards
 router.get('/:boardId', async (req, res) => {
  const board = await Board.findById(req.params.boardId).populate('prospects').populate('createdBy');
@@ -77,27 +62,29 @@ router.get('/:boardId', async (req, res) => {
 //show/create action for players being added to boards 
 // POST/boards/:boardId/prospects/:prospectId
 //Will have to figure out how to remove in edit/update action
-router.post('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
+// POST /boards/:boardId/prospects
+router.post('/:boardId/prospects', ensureLoggedIn, async (req, res) => {
  try {
-  const { boardId, prospectId } = req.body;
-  const board = await Board.findById(boardId);
+   const board = await Board.findById(req.params.boardId);
+   const prospectId = req.body.prospectId;
 
-  // Only allow adding to your own boards
-  if (!board.createdBy === req.user._id) {
-   return console.log('Not authorized');
-  }
+   if (!board.createdBy === req.user._id) {
+     return res.status(403).send('Unauthorized');
+   }
 
-  if (!board.prospects.includes(prospectId)) {
-   board.prospects.push(prospectId);
-   await board.save();
-  }
+   if (!board.prospects.includes(prospectId)) {
+     board.prospects.push(prospectId);
+     await board.save();
+   }
 
-  res.redirect(`/boards/${board._id}`);
+   res.redirect(`/boards/${board._id}`);
  } catch (err) {
-  console.error(err);
-  res.redirect('/prospects');
+   console.error(err);
+   res.redirect('/prospects');
  }
 });
+
+
 
 //DELETE Action
 //DELETE /boards/:id

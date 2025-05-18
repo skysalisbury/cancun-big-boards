@@ -12,22 +12,19 @@
         <button type="submit">Delete Player</button>
     </form>
   <% } %>
-
 <!-- Add Player to Board Form -->
 <% if (boards.length > 0) { %>
-  <form action="/boards/add-prospect" method="POST">
-    <input type="hidden" name="prospectId" value="<%= prospect._id %>">
-    <label for="boardId">Add to Board:</label>
-    <select name="boardId" id="boardId">
-      <% boards.forEach(board => { %>
-        <option value="<%= board._id %>"><%= board.title %></option>
-      <% }) %>
-    </select>
-    <button type="submit">Add Player to Board</button>
-  </form>
+  <% boards.forEach(board => { %>
+    <form action="/boards/<%= board._id %>/prospects" method="POST">
+      <input type="hidden" name="prospectId" value="<%= prospect._id %>">
+      <button type="submit">Add <%= prospect.name %> to "<%= board.title %>"</button>
+    </form>
+  <% }) %>
 <% } else { %>
   <p>You don't have any boards yet. <a href="/boards/new">Create one</a></p>
 <% } %>
+
+
 
 
 

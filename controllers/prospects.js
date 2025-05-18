@@ -53,6 +53,7 @@ router.post('/', async (req, res) => {
 
 //Show action
 //GET /prospects/:id
+  //Show Action for add player to board
 router.get('/:prospectId', ensureLoggedIn, async (req, res) => {
   const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
   const boards = await Board.find({ createdBy: req.user._id });
@@ -60,7 +61,7 @@ router.get('/:prospectId', ensureLoggedIn, async (req, res) => {
   res.render('prospects/show.ejs', {prospect, user: req.user, boards });
 });
 
-  //Show Action for add player to board
+
   //GET /prospects/:prospectId
   //Delete Action
   //Delete /prospects/:id
