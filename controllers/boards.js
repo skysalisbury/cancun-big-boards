@@ -37,9 +37,6 @@ router.get('/new', ensureLoggedIn, async (req, res) => {
 //Create Action
 router.post('/', async (req, res) => {
  try {
-  // if (!req.body.imageUrl) {
-  //   delete req.body.imageUrl;
-  // }
   req.body.createdBy = req.user._id;
   const newBoard = new Board(req.body);
   await newBoard.save();
@@ -84,11 +81,12 @@ router.post('/:boardId/prospects', ensureLoggedIn, async (req, res) => {
  }
 });
 
-
-
 //DELETE Action
 //DELETE /boards/:id
-// router.delete('/:boardId', async)
+router.delete('/:id', async (req, res) => {
+  await Board.findByIdAndDelete(req.params.id);
+  res.redirect('/boards');
+});
 
 
 
