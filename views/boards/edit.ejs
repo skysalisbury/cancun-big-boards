@@ -13,28 +13,30 @@
      <h3>Current Prospects</h3>
      <% if (board.prospects.length > 0) { %>
        <ul>
-         <% board.prospects.forEach(prospect => { %>
+         <% board.prospects.forEach(item => { %>
            <li>
              <label>
-               <input type="checkbox" name="existingProspects" value="<%= prospect._id %>" checked />
-               <%= prospect.name %> (<%= prospect.position %> - <%= prospect.team %>)
-             </label>
+               <input type="checkbox" name="existingProspects" value="<%= item.prospect._id %>" checked />
+               <%= item.prospect.name %> (<%= item.prospect.position %> - <%= item.prospect.team %>)
+             </label><br>
+             <label for="evaluation-<%= item.prospect._id %>">Evaluation for <%= item.prospect.name %>:</label><br>
+            <textarea name="prospectEvaluations[<%= item.prospect._id %>]" rows="4" cols="50"><%= item.evaluation || '' %></textarea>
            </li>
          <% }) %>
        </ul>
      <% } else { %>
        <p>No prospects currently added.</p>
      <% } %>
-    <h3>Add a New Prospect</h3>
-    <label for="newProspect">Select Prospect to Add:</label>
-    <select name="newProspect" id="newProspect">
-      <option value="">-- Select --</option>
-      <% prospects.forEach(prospect => { %>
-        <% if (!board.prospects.find(p => p._id.toString() === prospect._id.toString())) { %>
-          <option value="<%= prospect._id %>"><%= prospect.name %> - <%= prospect.position %></option>
-        <% } %>
-      <% }) %>
-    </select>
+     <h3>Add a New Prospect</h3>
+     <label for="newProspect">Select Prospect to Add:</label>
+     <select name="newProspect" id="newProspect">
+       <option value="">-- Select --</option>
+       <% prospects.forEach(item => { %>
+         <% if (item.prospect && !board.prospects.find(p => p.prospect._id.toString() === item.prospect._id.toString())) { %>
+           <option value="<%= item.prospect._id %>"><%= item.prospect.name %> - <%= item.prospect.position %></option>
+         <% } %>
+       <% }) %>
+     </select>     
     <div style="margin-top: 1em;">
       <button type="submit">Update Board</button>
     </div>

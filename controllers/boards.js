@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 
 //Show action for players on boards
 router.get('/:boardId', async (req, res) => {
- const board = await Board.findById(req.params.boardId).populate('prospects').populate('createdBy');
+ const board = await Board.findById(req.params.boardId).populate('prospects.prospect').populate('createdBy');
  const prospects = await Prospect.find({});
  res.render('boards/show.ejs', { board, prospects, user: req.user });
 });
@@ -59,19 +59,36 @@ router.get('/:boardId', async (req, res) => {
 //Will have to figure out how to remove in edit/update action
 // POST /boards/:boardId/prospects
 router.post('/:boardId/prospects', ensureLoggedIn, async (req, res) => {
- try {
-  const { prospectId } = req.body
-   const board = await Board.findById(req.params.boardId);
-   const prospect = await Prospect.findById(prospectId);
-   if (!board.prospects.includes(prospectId)) {
-     board.prospects.push(prospectId);
-     await board.save();
-   }
-   res.redirect(`/boards/${board._id}`);
- } catch (err) {
-   console.error(err);
-   res.redirect('/prospects');
- }
+  try {
+    const { prospectId } = req.body;
+    const board = await Board.findById(req.params.boardId);
+    const alreadyAdded = board.prospects.some(p => p.prospect.toString() === prospectId);
+    if (!alreadyAdded) {
+      board.prospects.push({ prospect: prospectId });
+      await board.save();
+    }
+    res.redirect(`/boards/${board._id}`);
+  } catch (err) {
+    console.error(err);
+    res.redirect('/prospects');
+  }
+});
+
+//POST Action
+//Adding and Saving evaluations of Prospects
+router.post('/:boardId/prospects/:prospectId/evaluation', async (req, res) => {
+  try {
+    const board = await Board.findById(req.params.boardId);
+    const evalEntry = board.prospects.find(p => p.prospect.toString() === req.params.prospectId);
+    if (evalEntry) {
+      evalEntry.evaluation = req.body.evaluation;
+      await board.save();
+    }
+    res.redirect(`/boards/${req.params.boardId}`);
+  } catch (err) {
+    console.log(err);
+    res.redirect('/boards');
+  }
 });
 
 //DELETE Action
@@ -94,8 +111,10 @@ router.delete('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res
 //EDIT Action
 //GET /boards/:boardId/edit
 router.get('/:boardId/edit', ensureLoggedIn, async (req, res) => {
-  const board = await Board.findById(req.params.boardId).populate('prospects');
+  const board = await Board.findById(req.params.boardId).populate('prospects.prospect');
   const prospects = await Prospect.find({});
+  console.log(board.prospects);
+  console.log(prospects);
   res.render('boards/edit.ejs', { board, prospects, user: req.user });
 });
 
@@ -106,15 +125,24 @@ router.put('/:boardId', async (req, res) => {
     const board = await Board.findById(req.params.boardId);
     board.title = req.body.title;
     board.evaluation = req.body.evaluation;
-    const selectedProspects = req.body.existingProspects || [];
-    board.prospects = Array.isArray(selectedProspects) ? selectedProspects : [selectedProspects];
-    if (req.body.newProspect && !board.prospects.includes(req.body.newProspect)) {
-      board.prospects.push(req.body.newProspect);
+    for (let prospectId in req.body.prospectEvaluations) {
+      const evaluation = req.body.prospectEvaluations[prospectId];
+      const evalEntry = board.prospects.find(p => p.prospect.toString() === prospectId);
+      if (evalEntry) {
+        evalEntry.evaluation = evaluation;
+      }
+    }
+    if (req.body.newProspect) {
+      const newProspectId = req.body.newProspect;
+      const alreadyAdded = board.prospects.some(p => p.prospect.toString() === newProspectId);
+      if (!alreadyAdded) {
+        board.prospects.push({ prospect: newProspectId });
+      }
     }
     await board.save();
     res.redirect(`/boards/${board._id}`);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.redirect('/boards');
   }
 });

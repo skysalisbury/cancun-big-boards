@@ -5,8 +5,8 @@ const User = require('../models/user');
 
 const boardSchema = new Schema({
   prospects: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Prospect',
+    prospect: { type: Schema.Types.ObjectId, ref: 'Prospect'},
+    evaluation: String,
   }],
   title: {
     type: String
