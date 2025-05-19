@@ -7,6 +7,14 @@
          <li style="list-style-type: none;">
            <img style="width: 200px; margin-right: 20px" src="<%= prospect.image %>" alt="<%= prospect.name %>">
            <a href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
+           <% if (typeof boardId !== 'undefined' && boardId !== null) { %>
+            <form action="/boards/<%= boardId %>/prospects" method="POST">
+              <input type="hidden" name="prospectId" value="<%= prospect._id %>">
+              <button type="submit">Add to This Board</button>
+            </form>
+          <% } else { %>
+            <a href="/prospects/<%= prospect._id %>">View</a>
+            <% } %>
          </li>
        <% }) %>
      </ul>
@@ -14,9 +22,6 @@
      <p>There Are No NBA Prospects...yet</p>
    <% } %>
    <a href="/prospects/new">Add New NBA Prospect</a>
-
-
-
 
 
 <%- include('../partials/footer.ejs') %>

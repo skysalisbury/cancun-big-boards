@@ -22,7 +22,8 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // Example of a non-protected route
 router.get('/', async (req, res) => {
   const prospects = await Prospect.find({});
-  res.render('prospects/index.ejs', { prospects, user: req.user });
+  const boardId = req.query.boardId || null;
+  res.render('prospects/index.ejs', { prospects, boardId, user: req.user });
 });
 
 //New Action 
@@ -54,10 +55,12 @@ router.post('/', async (req, res) => {
 //Show action
 //GET /prospects/:id
   //Show Action for add player to board
-router.get('/:prospectId', ensureLoggedIn, async (req, res) => {
+router.get('/:prospectId', async (req, res) => {
   const prospect = await Prospect.findById(req.params.prospectId).populate('createdBy').exec();
-  const boards = await Board.find({ createdBy: req.user._id });
-
+  let boards = [];
+  if (req.user) {
+    boards = await Board.find({ createdBy: req.user._id });
+  }
   res.render('prospects/show.ejs', {prospect, user: req.user, boards });
 });
 

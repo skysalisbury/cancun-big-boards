@@ -5,6 +5,13 @@
      <li>
        <img src="<%= prospect.image %>" alt="<%= prospect.name %>" style="width: 100px; height: auto;" />
        <strong><%= prospect.name %></strong> - <%= prospect.position %> from <%= prospect.team %>
+       <% if (user._id.toString() === board.createdBy._id.toString()) { %>
+       <form action="/boards/<%= board._id %>/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
+        <button type="submit" style="font-size: 0.8rem; padding: 2px 6px; background-color: #e74c3c; color: white; border: none; border-radius: 3px;">
+          Remove
+        </button>
+      </form>
+      <% } %>
      </li>
    <% }) %>
  </ul>
@@ -13,19 +20,11 @@
 <% } %>
 
   <% if (user._id.toString() === board.createdBy._id.toString()) { %>
-   <form action="/boards/<%= board._id %>/prospects" method="POST"></form>
-   <label for="prospects">Select Prospect for Board</label>
-   <select name="prospects" id="prospects">
-    <% prospects.forEach(prospect=> { %>
-     <option value="<%= prospect._id%>" <%=prospect.name %>>
-      <span>
-       <%= prospect.name %>
-      </span>
-     </option>
-     <%})%>
-   </select>
-   <button type="submit">Add Player to Board</button> <!-- put lines 12-23 in edit.ejs make sure to copy lines 11 and 28 as well-->
    <a href="/boards/<%= board._id %>/edit">Edit Board</a>
+   <a href="/prospects" style="display: inline-block; margin-top: 10px; padding: 8px 12px; background-color: #3498db; color: white; text-decoration: none; border-radius: 4px;">
+    Go See Other Prospects You Might want to add...
+  </a>
+  <a href="/prospects?boardId=<%= board._id %>">Add Prospect to Board</a>
    <form action="/boards/<%= board._id %>?_method=DELETE" method="POST">
     <button type="submit">Delete Board</button>
    </form>

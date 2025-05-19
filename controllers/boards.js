@@ -8,8 +8,6 @@ const ensureLoggedIn = require('../middleware/ensure-logged-in');
 // This is how we can more easily protect ALL routes for this router
 // router.use(ensureLoggedIn);
 
-// ALL paths start with '/unicorns'
-
 // index action
 // GET /boards
 // See all boards (community boards) or see my boards (user specific)
@@ -62,18 +60,13 @@ router.get('/:boardId', async (req, res) => {
 // POST /boards/:boardId/prospects
 router.post('/:boardId/prospects', ensureLoggedIn, async (req, res) => {
  try {
+  const { prospectId } = req.body
    const board = await Board.findById(req.params.boardId);
-   const prospectId = req.body.prospectId;
-
-   if (!board.createdBy === req.user._id) {
-     return res.status(403).send('Unauthorized');
-   }
-
+   const prospect = await Prospect.findById(prospectId);
    if (!board.prospects.includes(prospectId)) {
      board.prospects.push(prospectId);
      await board.save();
    }
-
    res.redirect(`/boards/${board._id}`);
  } catch (err) {
    console.error(err);
@@ -86,6 +79,44 @@ router.post('/:boardId/prospects', ensureLoggedIn, async (req, res) => {
 router.delete('/:id', async (req, res) => {
   await Board.findByIdAndDelete(req.params.id);
   res.redirect('/boards');
+});
+
+//Remove prospect from your board via show page, however I want to have multiple ways to add prospects and remove them from the boards.
+// DELETE /boards/:boardId/prospects/:prospectId
+router.delete('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
+  const board = await Board.findById(req.params.boardId);
+  board.prospects.pull(req.params.prospectId); // Mongoose way to remove from array
+  await board.save();
+
+  res.redirect(`/boards/${board._id}`);
+});
+
+//EDIT Action
+//GET /boards/:boardId/edit
+router.get('/:boardId/edit', ensureLoggedIn, async (req, res) => {
+  const board = await Board.findById(req.params.boardId).populate('prospects');
+  const prospects = await Prospect.find({});
+  res.render('boards/edit.ejs', { board, prospects, user: req.user });
+});
+
+//UPDATE Action
+//PUT /boards/:boardId
+router.put('/:boardId', async (req, res) => {
+  try {
+    const board = await Board.findById(req.params.boardId);
+    board.title = req.body.title;
+    board.evaluation = req.body.evaluation;
+    const selectedProspects = req.body.existingProspects || [];
+    board.prospects = Array.isArray(selectedProspects) ? selectedProspects : [selectedProspects];
+    if (req.body.newProspect && !board.prospects.includes(req.body.newProspect)) {
+      board.prospects.push(req.body.newProspect);
+    }
+    await board.save();
+    res.redirect(`/boards/${board._id}`);
+  } catch (err) {
+    console.log(err);
+    res.redirect('/boards');
+  }
 });
 
 
