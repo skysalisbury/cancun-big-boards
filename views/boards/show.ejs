@@ -1,43 +1,62 @@
 <%- include('../partials/header.ejs') %>
+  <% if (board.prospects && board.prospects.length> 0) { %>
+    <h1><%= board.title %></h1>
 
-<% if (board.prospects && board.prospects.length > 0) { %>
-  <ul>
-    <% board.prospects.forEach(item => { %>
-      <% if (item.prospect) { %>
-        <li>
-          <img src="<%= item.prospect.image %>" alt="<%= item.prospect.name %>" style="width: 100px; height: auto;" />
-          <strong><%= item.prospect.name %></strong> - <%= item.prospect.position %> from <%= item.prospect.team %>
-          
-          <% if (item.evaluation) { %>
-            <p><strong>Evaluation:</strong> <%= item.evaluation %></p>
-          <% } else { %>
-            <p><strong>Evaluation:</strong> No evaluation yet.</p>
-          <% } %>
+    <% if (board.evaluation && board.evaluation.trim() !== '') { %>
+      <div class="board-evaluation">
+        <h3>Board Criteria/Description</h3>
+        <p><%= board.evaluation %></p>
+      </div>
+    <% } %>
+    
+    <ul class="board-prospects-list">
+      <% board.prospects.forEach((item, index) => { %>
+        <% if (item.prospect) { %>
+          <li class="board-prospect-card">
+            <div class="rank-number"><%= index + 1 %>.</div>
+    
+            <div class="card-top">
+              <img class="board-thumbnail" src="<%= item.prospect.image %>" alt="<%= item.prospect.name %>">
+              <h3 class="prospect-name"><%= item.prospect.name %></h3>
+            </div>
+    
+            <div class="card-content">
+              <p><%= item.prospect.position %> – <%= item.prospect.team %></p>
+    
+              <% if (item.evaluation) { %>
+                <p><strong>Evaluation:</strong> <%= item.evaluation %></p>
+              <% } else { %>
+                <p><em>No evaluation yet.</em></p>
+              <% } %>
+    
+              <% if (user && user._id.toString() === board.createdBy._id.toString()) { %>
+                <a class="eval-button" href="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>/evaluations/edit" class="edit-eval-btn">Edit Evaluation</a>
 
-          <% if (user && user._id.toString() === board.createdBy._id.toString()) { %>
-            <form action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>/evaluation" method="POST">
-              <textarea name="evaluation" placeholder="Write your evaluation..."><%= item.evaluation %></textarea>
-              <button type="submit">Save Evaluation</button>
-            </form>
-            <form action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>?_method=DELETE" method="POST">
-              <button type="submit" style="background-color: #e74c3c;">Remove</button>
-            </form>
-          <% } %>
-        </li>
+    
+                <form action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>?_method=DELETE" method="POST">
+                  <button type="submit" class="danger">Remove</button>
+                </form>
+              <% } %>
+            </div>
+          </li>
+        <% } %>
+      <% }) %>
+    </ul>
+    
+    </ul>
+    <% } else { %>
+      <p>No prospects on this board yet.</p>
       <% } %>
-    <% }) %>
-  </ul>
-<% } else { %>
-  <p>No prospects on this board yet.</p>
-<% } %>
 
-<% if (user && user._id.toString() === board.createdBy._id.toString()) { %>
-  <a href="/boards/<%= board._id %>/edit">Edit Board</a>
-  <a href="/prospects">Check Out Other Prospects</a>
-  <a href="/prospects?boardId=<%= board._id %>" style="display: inline-block; margin-top: 10px; padding: 8px 12px; background-color: #3498db; color: white; text-decoration: none; border-radius: 4px;">Add Prospect to Board</a>
-  <form action="/boards/<%= board._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete Board</button>
-  </form>
-<% } %>
+        <% if (user && user._id.toString()===board.createdBy._id.toString()) { %>
+          <a href="/boards/<%= board._id %>/edit">Edit Board</a>
+          <a href="/prospects">Check Out Other Prospects</a>
+          <a href="/prospects?boardId=<%= board._id %>"
+            style="display: inline-block; margin-top: 10px; padding: 8px 12px; background-color: #3498db; color: white; text-decoration: none; border-radius: 4px;">Add
+            Prospect to Board</a>
+          <form action="/boards/<%= board._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete Board</button>
+          </form>
+          <% } %>
 
-<%- include('../partials/footer.ejs') %>
+            <%- include('../partials/footer.ejs') %>

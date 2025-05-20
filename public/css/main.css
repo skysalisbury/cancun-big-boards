@@ -47,6 +47,299 @@ main {
   margin-top: 5vmin;
 }
 
+.prospect-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3vmin;
+  justify-content: center;
+  padding: 0;
+}
+
+.prospect-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  border: 1px solid #ccc;
+  padding: 2vmin;
+  border-radius: 1vmin;
+  width: 220px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.prospect-thumbnail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 1vmin;
+}
+
+.prospect-name {
+  margin-top: 1vmin;
+  font-weight: bold;
+  text-align: center;
+  color: slategray;
+  text-decoration: none;
+}
+
+.prospect-name:hover {
+  text-decoration: underline;
+}
+
+.prospect-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vmin;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #fdfdfd;
+  border: 1px solid #ccc;
+  border-radius: 1vmin;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
+.prospect-profile-img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 1vmin;
+  margin-bottom: 3vmin;
+}
+
+.prospect-profile h1 {
+  font-size: 4vmin;
+  color: slategray;
+  margin-bottom: 1vmin;
+}
+
+.prospect-profile p,
+.prospect-profile h3,
+.prospect-profile h4 {
+  font-size: 2.2vmin;
+  margin: 1.5vmin 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.prospect-profile h4 strong {
+  display: block;
+  margin-bottom: 0.5vmin;
+}
+
+.prospect-profile form {
+  margin-top: 2vmin;
+}
+
+.prospect-profile button,
+.prospect-profile a {
+  margin: 0.5vmin;
+  padding: 1.2vmin 2.5vmin;
+  font-size: 2vmin;
+  border: none;
+  border-radius: 1vmin;
+  background-color: lightblue;
+  color: slategray;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.prospect-profile button:hover,
+.prospect-profile a:hover {
+  background-color: lightslategray;
+  color: white;
+}
+.prospect-description {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 1vmin;
+  border: 1px solid #eee;
+  background-color: #fafafa;
+  border-radius: 0.5vmin;
+  margin-bottom: 2vmin;
+}
+
+.board-evaluation {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+
+
+.board-prospects-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  list-style: none;
+}
+
+.board-prospect-card {
+  background-color: #f9f9f9;
+  width: 600px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.rank-number {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #555;
+}
+
+.card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.board-thumbnail {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  margin-bottom: 0.5rem;
+}
+
+.prospect-name {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card-content {
+  text-align: center;
+}
+
+.eval-button {
+  display: inline-block;
+  margin: 0.75rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.eval-button:hover {
+  background-color: #2980b9;
+}
+
+button.danger {
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.4rem 0.75rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+
+
+.board-prospect-details {
+  flex-grow: 1;
+}
+
+.board-prospect-details p {
+  margin: 0.5vmin 0;
+  color: #444;
+  font-size: 2vmin;
+}
+
+.board-prospect-details textarea {
+  width: 100%;
+  min-height: 60px;
+  margin-top: 1vmin;
+  padding: 1vmin;
+  border-radius: 0.5vmin;
+  border: 1px solid #ccc;
+  font-size: 1.8vmin;
+}
+
+.board-prospect-details button {
+  margin-top: 1vmin;
+  padding: 1vmin 2vmin;
+  background-color: lightblue;
+  color: slategray;
+  border: none;
+  border-radius: 1vmin;
+  cursor: pointer;
+}
+
+.board-prospect-details .danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.board-prospect-details button:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
+.add-btn {
+  display: inline-block;
+  margin-top: 2vmin;
+  padding: 1vmin 2vmin;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 1vmin;
+}
+
+.board-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vmin;
+  align-items: center;
+}
+
+.board-link {
+  display: inline-block;
+  padding: 1vmin 2vmin;
+  font-size: 2vmin;
+  background-color: lightblue;
+  color: slategray;
+  border-radius: 1vmin;
+  text-decoration: none;
+}
+
+.board-link:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
+
+
+
+
 form {
   display: grid;
   grid-template-columns: auto auto;

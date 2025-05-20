@@ -102,9 +102,10 @@ router.delete('/:id', async (req, res) => {
 // DELETE /boards/:boardId/prospects/:prospectId
 router.delete('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
   const board = await Board.findById(req.params.boardId);
-  board.prospects.pull(req.params.prospectId); // Mongoose way to remove from array
+  board.prospects = board.prospects.filter(item => {
+    return item.prospect.toString() !== req.params.prospectId;
+  });
   await board.save();
-
   res.redirect(`/boards/${board._id}`);
 });
 
@@ -145,6 +146,34 @@ router.put('/:boardId', async (req, res) => {
     console.error(err);
     res.redirect('/boards');
   }
+});
+
+// GET /boards/:boardId/prospects/:prospectId/evaluations/edit - evaluation ended up becoming 
+// icebox therefore not to destroy previous code I need new routes and a new file
+router.get('/:boardId/prospects/:prospectId/evaluations/edit', ensureLoggedIn, async (req, res) => {
+  const board = await Board.findById(req.params.boardId);
+  const item = board.prospects.find(p => p.prospect.toString() === req.params.prospectId);
+
+  if (!item) {
+    return res.redirect(`/boards/${board._id}`);
+  }
+
+  res.render('boards/evaluations/edit.ejs', {boardId: req.params.boardId,
+    prospectId: req.params.prospectId, evaluation: item.evaluation
+  });
+});
+
+// PUT /boards/:boardId/prospects/:prospectId/evaluations
+router.put('/:boardId/prospects/:prospectId/evaluations', ensureLoggedIn, async (req, res) => {
+  const board = await Board.findById(req.params.boardId);
+  const item = board.prospects.find(p => p.prospect.toString() === req.params.prospectId);
+
+  if (item) {
+    item.evaluation = req.body.evaluation;
+    await board.save();
+  }
+
+  res.redirect(`/boards/${board._id}`);
 });
 
 

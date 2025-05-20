@@ -1,0 +1,13 @@
+<%- include('../../partials/header.ejs') %>
+
+<h2>Edit Evaluation</h2>
+
+<form action="/boards/<%= boardId %>/prospects/<%= prospectId %>/evaluations?_method=PUT" method="POST">
+  <textarea name="evaluation" rows="6" cols="60" placeholder="Write your evaluation..."><%= evaluation %></textarea>
+  <br>
+  <button type="submit">Save Evaluation</button>
+</form>
+
+<a href="/boards/<%= boardId %>">Back to Board</a>
+
+<%- include('../../partials/footer.ejs') %>

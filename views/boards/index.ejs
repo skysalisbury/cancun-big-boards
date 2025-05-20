@@ -2,17 +2,17 @@
 
 <h1>BIG BOARD LIST</h1>
     <% if (boards.length > 0) { %>
-     <ul>
+     <ul class="board-list">
        <% boards.forEach(board => { %>
          <li>
-           <a href="/boards/<%= board._id %>"><%= board.title %></a>
+           <a class="board-link" href="/boards/<%= board._id %>"><%= board.title %></a>
          </li>
        <% }) %>
      </ul>
    <% } else { %>
      <p>You have not created a Big Board yet...</p>
    <% } %>
-   <a href="/boards/new">Add New Big Board</a>
+   <a class="add-btn" href="/boards/new">Add New Big Board</a>
 
 
 

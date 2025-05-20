@@ -2,11 +2,14 @@
 
 <h1>NBA PROSPECTS LIST</h1>
     <% if (prospects.length > 0) { %>
-     <ul>
+     <ul class="prospect-list">
        <% prospects.forEach(prospect => { %>
-         <li style="list-style-type: none;">
-           <img style="width: 200px; margin-right: 20px" src="<%= prospect.image %>" alt="<%= prospect.name %>">
-           <a href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
+         <li class="prospect-card" style="list-style-type: none;">
+          <div class="prospect-thumbnail">
+            <img class="thumbnail" src="<%= prospect.image %>" alt="<%= prospect.name %>">
+            <a class="prospect-name" href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
+          </div>
+
            <% if (typeof boardId !== 'undefined' && boardId !== null) { %>
             <form action="/boards/<%= boardId %>/prospects" method="POST">
               <input type="hidden" name="prospectId" value="<%= prospect._id %>">

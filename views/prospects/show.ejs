@@ -1,29 +1,45 @@
 <%- include('../partials/header.ejs') %>
-<img class="prospect-img" src="<%= prospect.image %>" alt="Prospect Image">
-  <h1><%= prospect.name %></h1>
-  <p><strong><%= prospect.age%>yrs <%= prospect.origin %></strong></p>
-  <p><strong><%= prospect.height %>ft, <%= prospect.weight %>lbs, Wingspan of <%= prospect.wingspan %>ft</strong></p>
-  <h3><%= prospect.team %> <%= prospect.position %></h3>
-  <h4><strong>Description:</strong> <%= prospect.description %></h4>
+  <div class="prospect-profile">
 
-      <% if (user && user._id.toString() === prospect.createdBy._id.toString()) { %>
-    <a href="/prospects/<%= prospect._id %>/edit">Edit Player</a>
-    <form action="/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
+    <img class="prospect-profile-img" src="<%= prospect.image %>" alt="Prospect Image">
+    <h1>
+      <%= prospect.name %>
+    </h1>
+    <p><strong>
+        <%= prospect.age%>yrs <%= prospect.origin %>
+      </strong></p>
+    <p><strong>
+        <%= prospect.height %>ft, <%= prospect.weight %>lbs, Wingspan of <%= prospect.wingspan %>ft
+      </strong></p>
+    <h3>
+      <%= prospect.team %>
+        <%= prospect.position %>
+    </h3>
+    <h4><strong>Description:</strong>
+      <div class="prospect-description">
+        <%= prospect.description %>
+      </div>
+    </h4>
+
+    <% if (user && user._id.toString()===prospect.createdBy._id.toString()) { %>
+      <a href="/prospects/<%= prospect._id %>/edit">Edit Player</a>
+      <form action="/prospects/<%= prospect._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete Player</button>
-    </form>
-  <% } %>
-<% if (user && boards.length > 0) { %>
-  <% boards.forEach(board => { %>
-    <form action="/boards/<%= board._id %>/prospects" method="POST">
-      <input type="hidden" name="prospectId" value="<%= prospect._id %>">
-      <button type="submit">Add <%= prospect.name %> to "<%= board.title %>"</button>
-    </form>
-  <% }) %>
-<% } else if (user) { %>
-  <p>You don't have any boards yet. <a href="/boards/new">Create one</a></p>
-<% } else { %>
-  <p><a href="/sign-in">Log in</a> to add this prospect to one of your boards.</p>
-<% } %>
+      </form>
+      <% } %>
+        <% if (user && boards.length> 0) { %>
+          <% boards.forEach(board=> { %>
+            <form action="/boards/<%= board._id %>/prospects" method="POST">
+              <input type="hidden" name="prospectId" value="<%= prospect._id %>">
+              <button type="submit">Add <%= prospect.name %> to "<%= board.title %>"</button>
+            </form>
+            <% }) %>
+              <% } else if (user) { %>
+                <p>You don't have any boards yet. <a href="/boards/new">Create one</a></p>
+                <% } else { %>
+                  <p><a href="/sign-in">Log in</a> to add this prospect to one of your boards.</p>
+                  <% } %>
+  </div>
 
 
 
@@ -36,4 +52,4 @@
 
 
 
-<%- include('../partials/footer.ejs') %>
+  <%- include('../partials/footer.ejs') %>
