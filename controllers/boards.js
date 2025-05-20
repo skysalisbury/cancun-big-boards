@@ -176,6 +176,17 @@ router.put('/:boardId/prospects/:prospectId/evaluations', ensureLoggedIn, async 
   res.redirect(`/boards/${board._id}`);
 });
 
+// PATCH /boards/:boardId/prospects/:prospectId - (I wouldn't use this but, 
+// this is prefered because i'm modifying the cards and not submitting a new object!)
+router.patch('/:boardId/prospects/:prospectId', ensureLoggedIn, async (req, res) => {
+  const board = await Board.findById(req.params.boardId);
+  const item = board.prospects.find(p => p.prospect.toString() === req.params.prospectId);
+  if (!item) return res.redirect(`/boards/${board._id}`);
+  if (req.body.tierColor) item.tierColor = req.body.tierColor;
+  await board.save();
+  res.redirect(`/boards/${board._id}`);
+});
+
 
 
 

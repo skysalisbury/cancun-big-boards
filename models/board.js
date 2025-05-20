@@ -7,6 +7,7 @@ const boardSchema = new Schema({
   prospects: [{
     prospect: { type: Schema.Types.ObjectId, ref: 'Prospect'},
     evaluation: String,
+    tierColor: { type: String, default: '#ffffff' },
   }],
   title: {
     type: String
@@ -19,6 +20,9 @@ const boardSchema = new Schema({
   evaluation: {
     type: String,
   },
+  tierColor: { 
+    type: String, 
+    default: '#ffffff' },
 }, {
   // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true

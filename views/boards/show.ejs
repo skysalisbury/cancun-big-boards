@@ -12,16 +12,24 @@
     <ul class="board-prospects-list">
       <% board.prospects.forEach((item, index) => { %>
         <% if (item.prospect) { %>
-          <li class="board-prospect-card">
+          <li class="board-prospect-card" style="background-color: <%= item.tierColor || '#ffffff' %>">
             <div class="rank-number"><%= index + 1 %>.</div>
-    
+            <form class="color-form" action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>?_method=PATCH" method="POST">
+              <label class="color-label" for="tierColor-<%= item.prospect._id %>">Tier Color</label>
+              <input type="color" class="color-input" name="tierColor" id="tierColor-<%= item.prospect._id %>" value="<%= item.tierColor || '#ffffff' %>">
+              <button type="submit" class="color-submit">✔</button>
+            </form>
+            
+            
+            
+            
             <div class="card-top">
               <img class="board-thumbnail" src="<%= item.prospect.image %>" alt="<%= item.prospect.name %>">
               <h3 class="prospect-name"><%= item.prospect.name %></h3>
             </div>
     
             <div class="card-content">
-              <p><%= item.prospect.position %> – <%= item.prospect.team %></p>
+              <p><%= item.prospect.position %> - <%= item.prospect.team %></p>
     
               <% if (item.evaluation) { %>
                 <p><strong>Evaluation:</strong> <%= item.evaluation %></p>

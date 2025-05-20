@@ -336,6 +336,41 @@ button.danger {
   color: white;
 }
 
+.color-form {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 6px;
+}
+
+.color-label {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.color-input {
+  border: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.color-submit {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.color-submit:hover {
+  background-color: #27ae60;
+}
 
 
 
