@@ -1,13 +1,30 @@
 <%- include('../../partials/header.ejs') %>
 
-<h2>Edit Evaluation</h2>
+<h2 style="text-align: center; margin-bottom: 2vmin;">Edit Evaluation</h2>
 
-<form action="/boards/<%= boardId %>/prospects/<%= prospectId %>/evaluations?_method=PUT" method="POST">
-  <textarea name="evaluation" rows="6" cols="60" placeholder="Write your evaluation..."><%= evaluation %></textarea>
-  <br>
-  <button type="submit">Save Evaluation</button>
-</form>
+<div class="board-prospect-card">
+  <div class="card-top">
+    <img src="<%= prospect.image %>" alt="<%= prospect.name %>" class="board-thumbnail" />
+    <h3 class="prospect-name"><%= prospect.name %></h3>
+    <p><%= prospect.position %> - <%= prospect.team %></p>
+  </div>
 
-<a href="/boards/<%= boardId %>">Back to Board</a>
+  <form 
+    action="/boards/<%= boardId %>/prospects/<%= prospectId %>/evaluations?_method=PUT" 
+    method="POST" 
+    class="board-prospect-details">
+    <label for="evaluation">Your Evaluation:</label>
+    <textarea name="evaluation" id="evaluation" rows="10" placeholder="Write your evaluation..." 
+      required ><%= evaluation %></textarea>
+
+    <div class="action-buttons">
+      <button type="submit" class="action-btn">Save Evaluation</button>
+      <a href="/boards/<%= boardId %>" class="action-btn">Back to Board</a>
+    </div>
+  </form>
+</div>
 
 <%- include('../../partials/footer.ejs') %>
+
+
+

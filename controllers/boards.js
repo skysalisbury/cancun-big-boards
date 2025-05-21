@@ -153,14 +153,12 @@ router.put('/:boardId', async (req, res) => {
 router.get('/:boardId/prospects/:prospectId/evaluations/edit', ensureLoggedIn, async (req, res) => {
   const board = await Board.findById(req.params.boardId);
   const item = board.prospects.find(p => p.prospect.toString() === req.params.prospectId);
-
   if (!item) {
     return res.redirect(`/boards/${board._id}`);
   }
-
-  res.render('boards/evaluations/edit.ejs', {boardId: req.params.boardId,
-    prospectId: req.params.prospectId, evaluation: item.evaluation
-  });
+  const foundProspect = await Prospect.findById(req.params.prospectId);
+  res.render('boards/evaluations/edit.ejs', { boardId: req.params.boardId, prospectId: req.params.prospectId,
+    evaluation: item.evaluation, prospect: foundProspect });
 });
 
 // PUT /boards/:boardId/prospects/:prospectId/evaluations
