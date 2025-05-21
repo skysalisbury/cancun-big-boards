@@ -303,36 +303,55 @@ button.danger {
   color: white;
 }
 
-.add-btn {
-  display: inline-block;
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2vmin;
   margin-top: 2vmin;
+}
+
+.action-btn {
   padding: 1vmin 2vmin;
   background-color: #3498db;
   color: white;
-  text-decoration: none;
   border-radius: 1vmin;
-}
-
-.board-list {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vmin;
-  align-items: center;
-}
-
-.board-link {
-  display: inline-block;
-  padding: 1vmin 2vmin;
+  text-decoration: none;
   font-size: 2vmin;
-  background-color: lightblue;
-  color: slategray;
-  border-radius: 1vmin;
-  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  display: inline-block;
+  margin: 1vmin;
 }
 
-.board-link:hover {
+.action-btn:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
+.action-btn.danger {
+  background-color: #e74c3c;
+}
+
+.action-btn.danger:hover {
+  background-color: #c0392b;
+}
+
+.board-btn {
+  padding: 1vmin 2vmin;
+  background-color: #3498db;
+  color: white;
+  border-radius: 1vmin;
+  font-size: 2vmin;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  display: inline-block;
+  margin: 1vmin;
+  width: auto;
+}
+
+.board-btn:hover {
   background-color: lightslategray;
   color: white;
 }

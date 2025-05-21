@@ -6,13 +6,7 @@
       <div class="board-prospect-card">
         <div class="board-prospect-details">
           <label for="title">Board Title:</label>
-          <input 
-            type="text" 
-            id="title" 
-            name="title" 
-            value="<%= board.title %>" 
-            required 
-          />
+          <input type="text" id="title" name="title" value="<%= board.title %>" required />
         </div>
       </div>
     </div>
@@ -21,10 +15,7 @@
       <div class="board-prospect-card">
         <div class="board-prospect-details">
           <label for="evaluation">Board Description:</label>
-          <textarea 
-            id="evaluation" 
-            name="evaluation" 
-            rows="5"
+          <textarea id="evaluation" name="evaluation" rows="5"
           ><%= board.evaluation || '' %></textarea>
         </div>
       </div>
@@ -49,11 +40,8 @@
                 </label>
 
                 <label for="evaluation-<%= item.prospect._id %>">Evaluation for <%= item.prospect.name %>:</label>
-                <textarea 
-                  name="prospectEvaluations[<%= item.prospect._id %>]" 
-                  id="evaluation-<%= item.prospect._id %>" 
-                  rows="3"
-                ><%= item.evaluation || '' %></textarea>
+                <textarea name="prospectEvaluations[<%= item.prospect._id %>]" id="evaluation-
+                  <%= item.prospect._id %>" rows="3"><%= item.evaluation || '' %></textarea>
               </div>
             </li>
           <% }) %>
@@ -75,8 +63,8 @@
       </select>
     </div>
     <div style="grid-column: span 2; display: flex; justify-content: center; gap: 2vmin;">
-      <button type="submit">Update Board</button>
-      <a href="/boards/<%= board._id %>" class="board-link">Cancel</a>
+      <button type="submit" class="action-btn">Update Board</button>
+      <a href="/boards/<%= board._id %>" class="action-btn">Cancel</a>
     </div>
   </form>
 <% } else { %>

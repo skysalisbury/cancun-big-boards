@@ -5,14 +5,14 @@
      <ul class="board-list">
        <% boards.forEach(board => { %>
          <li>
-           <a class="board-link" href="/boards/<%= board._id %>"><%= board.title %></a>
+           <a class="action-btn board-btn" href="/boards/<%= board._id %>"><%= board.title %></a>
          </li>
        <% }) %>
      </ul>
    <% } else { %>
      <p>You have not created a Big Board yet...</p>
    <% } %>
-   <a class="add-btn" href="/boards/new">Add New Big Board</a>
+   <a class="action-btn board-btn" href="/boards/new">Add New Big Board</a>
 
 
 
