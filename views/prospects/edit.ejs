@@ -1,53 +1,43 @@
 <%- include('../partials/header.ejs') %>
 
-
-
 <h1>Edit Player</h1>
 
 <form action="/prospects/<%= prospect._id %>?_method=PUT" method="POST">
     
   <label for="image">Image:</label>
-    <input
-      type="text"
-      id="image"
-      name="image"
-      value="<%= prospect.image %>"/>
+  <input type="text" id="image" name="image"value="<%= prospect.image %>" />
 
-    <label for="name">Name:</label>
-  <input type="text" name="name" id="name" value="<%= prospect.name %>"/>
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name" value="<%= prospect.name %>" />
 
   <label for="origin">Place of Origin:</label>
-  <input type="text" name="origin" id="origin" />
+  <input type="text" name="origin" id="origin"value="<%= prospect.origin %>" />
 
-    <label for="age">Age:</label>
-  <input type="number" name="age" id="age" />
+  <label for="age">Age:</label>
+  <input type="number" name="age" id="age" value="<%= prospect.age %>" />
 
-    <label for="height">Height:</label>
-  <input type="text" name="height" id="height" />
+  <label for="height">Height:</label>
+  <input type="text" name="height" id="height" value="<%= prospect.height %>" />
 
-    <label for="wingspan">Wingspan:</label>
-  <input type="text" name="wingspan" id="wingspan" />
+  <label for="wingspan">Wingspan:</label>
+  <input type="text" name="wingspan" id="wingspan" value="<%= prospect.wingspan %>" />
 
-    <label for="weight">Weight:</label>
-  <input type="number" name="weight" id="weight" />
+  <label for="weight">Weight:</label>
+  <input type="number" name="weight" id="weight" value="<%= prospect.weight %>" />
 
-    <label for="position">Position:</label>
-  <input type="text" name="position" id="position" />
+  <label for="position">Position:</label>
+  <input type="text" name="position" id="position" value="<%= prospect.position %>" />
 
-    <label for="team">College/Team:</label>
-  <input type="text" name="team" id="team" />
+  <label for="team">College/Team:</label>
+  <input type="text" name="team" id="team" value="<%= prospect.team %>" />
 
-    <label for="stats">Stats (Top Three Any Category):</label>
-  <input type="text" name="stats" id="stats" />
+  <label for="stats">Stats (Top Three Any Category):</label>
+  <input type="text" name="stats" id="stats" value="<%= prospect.stats %>" />
 
   <label for="description">Description:</label>
-  <textarea name="description" id="description"></textarea>
+  <textarea name="description" id="description" rows="5"><%= prospect.description %></textarea>
 
   <button type="submit">UPDATE PLAYER</button>
 </form>
-
-
-
-
 
 <%- include('../partials/footer.ejs') %>
