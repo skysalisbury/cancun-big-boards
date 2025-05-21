@@ -47,6 +47,30 @@ main {
   margin-top: 5vmin;
 }
 
+.add-prospect-container {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vmin;
+}
+
+.add-prospect-btn {
+  padding: 1.2vmin 2.5vmin;
+  font-size: 2vmin;
+  border: none;
+  border-radius: 1vmin;
+  background-color: lightblue;
+  color: slategray;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.add-prospect-btn:hover {
+  background-color: lightslategray;
+  color: white;
+}
+
 .prospect-list {
   display: flex;
   flex-wrap: wrap;
