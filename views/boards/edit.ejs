@@ -1,48 +1,86 @@
 <%- include('../partials/header.ejs') %>
 <h1>Edit Board</h1>
 <% if (user._id.toString()===board.createdBy._id.toString()) { %>
-  <form action="/boards/<%= board._id %>?_method=PUT" method="POST">
-    <div>
-      <label for="title">Board Title:</label>
-      <input type="text" id="title" name="title" value="<%= board.title %>" required />
+  <form action="/boards/<%= board._id %>?_method=PUT" method="POST" class="board-edit-form" style="max-width: 800px; width: 100%;">
+    <div style="grid-column: span 2;">
+      <div class="board-prospect-card">
+        <div class="board-prospect-details">
+          <label for="title">Board Title:</label>
+          <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            value="<%= board.title %>" 
+            required 
+          />
+        </div>
+      </div>
     </div>
-     <div>
-      <label for="evaluation">Board: Description:</label><br>
-      <textarea id="evaluation" name="evaluation" rows="5" cols="50"><%= board.evaluation || '' %></textarea>
+    <div style="grid-column: span 2;">
+      <h3>Board Description</h3>
+      <div class="board-prospect-card">
+        <div class="board-prospect-details">
+          <label for="evaluation">Board Description:</label>
+          <textarea 
+            id="evaluation" 
+            name="evaluation" 
+            rows="5"
+          ><%= board.evaluation || '' %></textarea>
+        </div>
+      </div>
     </div>
-     <h3>Current Prospects</h3>
-     <% if (board.prospects.length > 0) { %>
-       <ul>
-         <% board.prospects.forEach(item => { %>
-           <li>
-             <label>
-               <input type="checkbox" name="existingProspects" value="<%= item.prospect._id %>" checked />
-               <%= item.prospect.name %> (<%= item.prospect.position %> - <%= item.prospect.team %>)
-             </label><br>
-             <label for="evaluation-<%= item.prospect._id %>">Evaluation for <%= item.prospect.name %>:</label><br>
-            <textarea name="prospectEvaluations[<%= item.prospect._id %>]" rows="4" cols="50"><%= item.evaluation || '' %></textarea>
-           </li>
-         <% }) %>
-       </ul>
-     <% } else { %>
-       <p>No prospects currently added.</p>
-     <% } %>
-     <h3>Add a New Prospect</h3>
-     <label for="newProspect">Select Prospect to Add:</label>
-     <select name="newProspect" id="newProspect">
-       <option value="">-- Select --</option>
-       <% prospects.forEach(item => { %>
-         <% if (item.prospect && !board.prospects.find(p => p.prospect._id.toString() === item.prospect._id.toString())) { %>
-           <option value="<%= item.prospect._id %>"><%= item.prospect.name %> - <%= item.prospect.position %></option>
-         <% } %>
-       <% }) %>
-     </select>     
-    <div style="margin-top: 1em;">
+    
+    <div style="grid-column: span 2;">
+      <h3>Current Prospects</h3>
+      <% if (board.prospects.length > 0) { %>
+        <ul class="board-prospects-list">
+          <% board.prospects.forEach(item => { %>
+            <li class="board-prospect-card" style="display: flex; flex-direction: column; align-items: stretch;">
+              <div class="board-prospect-details">
+                <label style="margin-bottom: 1vmin;">
+                  <input 
+                    type="checkbox" 
+                    name="existingProspects" 
+                    value="<%= item.prospect._id %>" 
+                    checked
+                  />
+                  <strong><%= item.prospect.name %></strong>
+                  (<%= item.prospect.position %> - <%= item.prospect.team %>)
+                </label>
+
+                <label for="evaluation-<%= item.prospect._id %>">Evaluation for <%= item.prospect.name %>:</label>
+                <textarea 
+                  name="prospectEvaluations[<%= item.prospect._id %>]" 
+                  id="evaluation-<%= item.prospect._id %>" 
+                  rows="3"
+                ><%= item.evaluation || '' %></textarea>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p class="text-muted">No prospects currently added.</p>
+      <% } %>
+    </div>
+    <div style="grid-column: span 2;">
+      <h3>Add a New Prospect</h3>
+      <label for="newProspect">Select Prospect to Add:</label>
+      <select name="newProspect" id="newProspect">
+        <option value="">-- Select --</option>
+        <% prospects.forEach(item => { %>
+          <% if (item.prospect && !board.prospects.find(p => p.prospect._id.toString() === item.prospect._id.toString())) { %>
+            <option value="<%= item.prospect._id %>"><%= item.prospect.name %> - <%= item.prospect.position %></option>
+          <% } %>
+        <% }) %>
+      </select>
+    </div>
+    <div style="grid-column: span 2; display: flex; justify-content: center; gap: 2vmin;">
       <button type="submit">Update Board</button>
+      <a href="/boards/<%= board._id %>" class="board-link">Cancel</a>
     </div>
   </form>
 <% } else { %>
-  <p>You do not have permission to edit this board.</p>
+  <p class="error-msg">You do not have permission to edit this board.</p>
 <% } %>
 
 <%- include('../partials/footer.ejs') %>
