@@ -2,27 +2,24 @@ const express = require('express');
 const router = express.Router();
 const Board = require('../models/board');
 const Prospect = require('../models/prospect');
-// Middleware used to protect routes that need a logged in user
 const ensureLoggedIn = require('../middleware/ensure-logged-in');
-
-// This is how we can more easily protect ALL routes for this router
-// router.use(ensureLoggedIn);
 
 // index action
 // GET /boards
 // See all boards (community boards) or see my boards (user specific)
+// GET /boards - Community Boards (all boards)
 router.get('/', async (req, res) => {
- let boards;
- 
- if (req.query.user) {
-   // Only show boards created by the logged-in user
-   boards = await Board.find({ createdBy: req.query.user });
- } else {
-   // Show all community boards
-   boards = await Board.find({});
- }
-
- res.render('boards/index.ejs', { boards });
+  let boards;
+  let viewingUserBoards = false;
+  // Check for user query param
+  if (req.query.user && req.user && req.user._id.toString() === req.query.user) {
+    boards = await Board.find({ createdBy: req.user._id });
+    viewingUserBoards = true;
+  } else {
+    // Show all community boards
+    boards = await Board.find({}).populate('createdBy');
+  }
+  res.render('boards/index.ejs', { boards, user: req.user, viewingUserBoards });
 });
 
 // GET /prospects/new

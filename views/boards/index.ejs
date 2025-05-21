@@ -1,6 +1,12 @@
 <%- include('../partials/header.ejs') %>
 
-<h1>BIG BOARD LIST</h1>
+<h1 style="text-align: center; margin-top: 2vmin;">
+  <% if (viewingUserBoards) { %>
+    My Big Boards
+  <% } else { %>
+    Check Out Other Users' Boards
+  <% } %>
+</h1>
     <% if (boards.length > 0) { %>
      <ul class="board-list" style="list-style-type: none;">
        <% boards.forEach(board => { %>
