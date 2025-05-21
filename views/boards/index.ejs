@@ -2,10 +2,10 @@
 
 <h1>BIG BOARD LIST</h1>
     <% if (boards.length > 0) { %>
-     <ul class="board-list">
+     <ul class="board-list" style="list-style-type: none;">
        <% boards.forEach(board => { %>
          <li>
-           <a class="action-btn board-btn" href="/boards/<%= board._id %>"><%= board.title %></a>
+           <a class="action-btn board-btn"  href="/boards/<%= board._id %>"><%= board.title %></a>
          </li>
        <% }) %>
      </ul>
