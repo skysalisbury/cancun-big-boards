@@ -258,6 +258,10 @@ main {
   position: relative;
 }
 
+.board-prospect-card,
+.board-prospect-card * {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
 
 .rank-number {
   position: absolute;
