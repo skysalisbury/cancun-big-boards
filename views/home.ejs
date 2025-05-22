@@ -32,9 +32,14 @@
     <li class="prospect-card">
       <a href="/prospects/<%= prospect._id %>" class="prospect-thumbnail">
         <img
-          class="thumbnail" src="<%= prospect.image %>" alt="<%= prospect.name %>"/>
+          class="thumbnail"
+          src="<%= prospect.image %>"
+          alt="<%= prospect.name %>"
+        />
       </a>
-      <a class="prospect-name" href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
+      <a class="prospect-name" href="/prospects/<%= prospect._id %>"
+        ><%= prospect.name %></a
+      >
       <p><%= prospect.team %> - <%= prospect.position %></p>
     </li>
     <% }) %>

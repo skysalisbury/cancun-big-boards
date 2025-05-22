@@ -4,13 +4,13 @@
 
 <form action="/prospects/<%= prospect._id %>?_method=PUT" method="POST">
   <label for="image">Image:</label>
-  <input type="text" id="image" name="image"value="<%= prospect.image %>" />
+  <input type="text" id="image" name="image" value="<%= prospect.image %>" />
 
   <label for="name">Name:</label>
   <input type="text" name="name" id="name" value="<%= prospect.name %>" />
 
   <label for="origin">Place of Origin:</label>
-  <input type="text" name="origin" id="origin"value="<%= prospect.origin %>" />
+  <input type="text" name="origin" id="origin" value="<%= prospect.origin %>" />
 
   <label for="age">Age:</label>
   <input type="number" name="age" id="age" value="<%= prospect.age %>" />
@@ -19,13 +19,28 @@
   <input type="text" name="height" id="height" value="<%= prospect.height %>" />
 
   <label for="wingspan">Wingspan:</label>
-  <input type="text" name="wingspan" id="wingspan" value="<%= prospect.wingspan %>" />
+  <input
+    type="text"
+    name="wingspan"
+    id="wingspan"
+    value="<%= prospect.wingspan %>"
+  />
 
   <label for="weight">Weight:</label>
-  <input type="number" name="weight" id="weight" value="<%= prospect.weight %>" />
+  <input
+    type="number"
+    name="weight"
+    id="weight"
+    value="<%= prospect.weight %>"
+  />
 
   <label for="position">Position:</label>
-  <input type="text" name="position" id="position" value="<%= prospect.position %>" />
+  <input
+    type="text"
+    name="position"
+    id="position"
+    value="<%= prospect.position %>"
+  />
 
   <label for="team">College/Team:</label>
   <input type="text" name="team" id="team" value="<%= prospect.team %>" />
@@ -34,7 +49,9 @@
   <input type="text" name="stats" id="stats" value="<%= prospect.stats %>" />
 
   <label for="description">Description:</label>
-  <textarea name="description" id="description" rows="5"><%= prospect.description %></textarea>
+  <textarea name="description" id="description" rows="5">
+<%= prospect.description %></textarea
+  >
 
   <button type="submit">UPDATE PLAYER</button>
 </form>
