@@ -505,6 +505,12 @@ button:hover {
   color: rgb(223, 116, 116);
 }
 
+.landing-intro {
+  text-align: center;
+  margin: 5vmin auto;
+  max-width: 600px;
+}
+
 :root {
   --bg-color: #ffffff;
   --text-color: #222222;

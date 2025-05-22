@@ -1,16 +1,14 @@
 require("dotenv").config();
-
 const express = require("express");
 const app = express();
-
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
-
 const morgan = require("morgan");
 const session = require('express-session');
-
 const ensureLoggedIn = require('./middleware/ensure-logged-in.js');
 const addUserToReqAndLocals = require('./middleware/add-user-to-req-and-locals.js');
+const Board = require('./models/board');
+const Prospect = require('./models/prospect');
 
 const port = process.env.PORT || 3000;
 
@@ -36,9 +34,13 @@ app.use(session({
 
 app.use(require('./middleware/add-user-to-req-and-locals'));
 
-// GET / (root/default) -> Home Page
-app.get('/', (req, res) => {
-  res.render('home.ejs');
+// GET / — Landing Page
+app.get('/', async (req, res) => {
+  const recentBoards = await Board.find({}).limit(3).populate('createdBy');
+  const allProspects = await Prospect.find({});
+  const shuffled = allProspects.sort(() => 0.5 - Math.random());
+  const dailyProspects = shuffled.slice(0, 3);
+  res.render('home.ejs', { recentBoards, dailyProspects, user: req.user });
 });
 
 app.use('/auth', require('./controllers/auth'));
