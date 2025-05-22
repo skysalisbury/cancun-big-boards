@@ -4,7 +4,7 @@
   <h1>🏀 Cancun Big Boards</h1>
   <p>Discover, build, and share your NBA Draft Big Boards with the world.</p>
   <% if (!user) { %>
-    <a class="action-btn board-btn" href="/auth/sign-up">Join Now</a>
+  <a class="action-btn board-btn" href="/auth/sign-up">Join Now</a>
   <% } %>
 </section>
 
@@ -12,28 +12,31 @@
   <h2>🔥 Recent Community Boards</h2>
   <ul class="board-list">
     <% recentBoards.forEach(board => { %>
-      <li>
-        <a class="board-btn" href="/boards/<%= board._id %>">
-          "<%= board.title %>" by <%= board.createdBy.username || 'Anonymous' %>
-        </a>
-      </li>
+    <li>
+      <a class="board-btn" href="/boards/<%= board._id %>">
+        "<%= board.title %>" by <%= board.createdBy.username || 'Anonymous' %>
+      </a>
+    </li>
     <% }) %>
   </ul>
 </section>
 
 <section>
   <h2>⭐ Featured Prospects</h2>
-  <h2 style="text-align: center; margin-top: 2vmin;">Check Out The Featured NBA Prospects!</h2>
+  <h2 style="text-align: center; margin-top: 2vmin">
+    Check Out The Featured NBA Prospects!
+  </h2>
 
   <ul class="prospect-list">
     <% dailyProspects.forEach(prospect => { %>
-      <li class="prospect-card">
-        <a href="/prospects/<%= prospect._id %>" class="prospect-thumbnail">
-          <img class="thumbnail" src="<%= prospect.image %>" alt="<%= prospect.name %>">
-        </a>
-        <a class="prospect-name" href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
-        <p><%= prospect.team %> - <%= prospect.position %></p>
-      </li>
+    <li class="prospect-card">
+      <a href="/prospects/<%= prospect._id %>" class="prospect-thumbnail">
+        <img
+          class="thumbnail" src="<%= prospect.image %>" alt="<%= prospect.name %>"/>
+      </a>
+      <a class="prospect-name" href="/prospects/<%= prospect._id %>"><%= prospect.name %></a>
+      <p><%= prospect.team %> - <%= prospect.position %></p>
+    </li>
     <% }) %>
   </ul>
 </section>

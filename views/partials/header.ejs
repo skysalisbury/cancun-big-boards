@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/main.css">
-  <title>CANCUN BIG BOARDS</title>
-</head>
-<body>
-  <nav>
-    <a href="/">🏠</a>
-    <div>
-      <button id="theme-toggle" class="board-btn">Toggle Dark Mode</button>
-      <a href="/prospects">ALL NBA PROSPECTS</a>
-      <a href="/boards">Community Boards</a>
-      <% if (user) { %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>CANCUN BIG BOARDS</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">🏠</a>
+      <div>
+        <button id="theme-toggle" class="board-btn">Toggle Dark Mode</button>
+        <a href="/prospects">ALL NBA PROSPECTS</a>
+        <a href="/boards">Community Boards</a>
+        <% if (user) { %>
         <a href="/boards?user=<%= user._id %>">My Big Boards</a>
-      <% } %>
-      <% if (user) { %>
+        <% } %> <% if (user) { %>
         <a href="/auth/sign-out">SIGN OUT</a>
         <span><%= user.username || user.name %></span>
-      <% } else { %>
+        <% } else { %>
         <a href="/auth/sign-up">SIGN UP</a>
         <a href="/auth/sign-in">SIGN IN</a>
-      <% } %>
-    </div>
-  </nav>
-  <main>
+        <% } %>
+      </div>
+    </nav>
+    <main></main>
+  </body>
+</html>

@@ -13,16 +13,20 @@
       <% board.prospects.forEach((item, index) => { %>
         <% if (item.prospect) { %>
           <li class="board-prospect-card"
-          style="<%= item.tierColor && item.tierColor !== '#ffffff' ? 'background-color: ' + item.tierColor + ';' : '' %>"
+          style="<%= item.tierColor && item.tierColor !== '#ffffff' ? 'background-color: ' + 
+          item.tierColor + ';' : '' %>"
           <%= item.tierColor && item.tierColor !== '#ffffff' ? 'data-custom-color="true"' : '' %>>
           <div class="rank-number"><%= index + 1 %>.</div>
-          <form class="color-form" action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>?_method=PATCH" method="POST">
+          <form class="color-form" action="/boards/<%= board._id %>/prospects/
+            <%= item.prospect._id %>?_method=PATCH" method="POST">
             <label class="color-label" for="tierColor-<%= item.prospect._id %>">Tier Color</label>
-            <input type="color" class="color-input" name="tierColor" id="tierColor-<%= item.prospect._id %>" value="<%= item.tierColor || '#ffffff' %>">
+            <input type="color" class="color-input" name="tierColor" id="tierColor-
+            <%= item.prospect._id %>" value="<%= item.tierColor || '#ffffff' %>">
             <button type="submit" class="color-submit">✔</button>
           </form>
             <div class="card-top">
-              <img class="board-thumbnail" src="<%= item.prospect.image %>" alt="<%= item.prospect.name %>">
+              <img class="board-thumbnail" src="<%= item.prospect.image %>" 
+              alt="<%= item.prospect.name %>">
               <h3 class="prospect-name"><%= item.prospect.name %></h3>
             </div>
     
@@ -36,9 +40,12 @@
               <% } %>
     
               <% if (user && user._id.toString() === board.createdBy._id.toString()) { %>
-                <a class="eval-button" href="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>/evaluations/edit" class="edit-eval-btn">Edit Evaluation</a>
+                <a class="eval-button" href="/boards/<%= board._id %>/prospects/
+                  <%= item.prospect._id %>/evaluations/edit" 
+                  class="edit-eval-btn">Edit Evaluation</a>
 
-                <form action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>?_method=DELETE" method="POST">
+                <form action="/boards/<%= board._id %>/prospects/
+                  <%= item.prospect._id %>?_method=DELETE" method="POST">
                   <button type="submit" class="danger">Remove</button>
                 </form>
               <% } %>
@@ -57,7 +64,8 @@
           <div class="action-buttons">
             <a href="/boards/<%= board._id %>/edit" class="action-btn">Edit Board</a>
             <a href="/prospects" class="action-btn">Check Out Other Prospects</a>
-            <a href="/prospects?boardId=<%= board._id %>" class="action-btn">Add Prospect to Board</a>
+            <a href="/prospects?boardId=<%= board._id %>" 
+              class="action-btn">Add Prospect to Board</a>
             <form action="/boards/<%= board._id %>?_method=DELETE" method="POST">
               <button type="submit" class="action-btn danger">Delete Board</button>
             </form>

@@ -1,27 +1,21 @@
 <%- include('../partials/header.ejs') %>
 
-<h1 style="text-align: center; margin-top: 2vmin;">
-  <% if (viewingUserBoards) { %>
-    My Big Boards
-  <% } else { %>
-    Check Out Other Users' Boards
-  <% } %>
+<h1 style="text-align: center; margin-top: 2vmin">
+  <% if (viewingUserBoards) { %> My Big Boards <% } else { %> Check Out Other
+  Users' Boards <% } %>
 </h1>
-    <% if (boards.length > 0) { %>
-     <ul class="board-list" style="list-style-type: none;">
-       <% boards.forEach(board => { %>
-         <li>
-           <a class="action-btn board-btn"  href="/boards/<%= board._id %>"><%= board.title %></a>
-         </li>
-       <% }) %>
-     </ul>
-   <% } else { %>
-     <p>You have not created a Big Board yet...</p>
-   <% } %>
-   <a class="action-btn board-btn" href="/boards/new">Add New Big Board</a>
-
-
-
-
+<% if (boards.length > 0) { %>
+<ul class="board-list" style="list-style-type: none">
+  <% boards.forEach(board => { %>
+  <li>
+    <a class="action-btn board-btn" href="/boards/<%= board._id %>"
+      ><%= board.title %></a>
+  </li>
+  <% }) %>
+</ul>
+<% } else { %>
+<p>You have not created a Big Board yet...</p>
+<% } %>
+<a class="action-btn board-btn" href="/boards/new">Add New Big Board</a>
 
 <%- include('../partials/footer.ejs') %>
