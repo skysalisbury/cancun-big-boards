@@ -528,3 +528,7 @@ button:hover {
   --hover-bg: #555;
   --hover-text: #fff;
 }
+[data-theme="dark"] .board-prospect-card:not([data-custom-color]) {
+  background-color: #1f1f1f;
+  color: #f1f1f1;
+}

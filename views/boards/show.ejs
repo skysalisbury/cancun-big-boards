@@ -12,7 +12,8 @@
     <ul class="board-prospects-list">
       <% board.prospects.forEach((item, index) => { %>
         <% if (item.prospect) { %>
-          <li class="board-prospect-card" style="background-color: <%= item.tierColor || '#ffffff' %>">
+          <li class="board-prospect-card"
+          <%= item.tierColor ? `style="background-color: ${item.tierColor}" data-custom-color` : '' %>>
             <div class="rank-number"><%= index + 1 %>.</div>
             <form class="color-form" action="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>?_method=PATCH" method="POST">
               <label class="color-label" for="tierColor-<%= item.prospect._id %>">Tier Color</label>
