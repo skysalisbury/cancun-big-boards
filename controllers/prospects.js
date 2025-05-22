@@ -17,18 +17,13 @@ router.get('/new', ensureLoggedIn, async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  try {
-    if (!req.body.imageUrl) {
-      delete req.body.imageUrl;
-    }
-    req.body.createdBy = req.user._id;
-    const newPlayer = new Prospect(req.body);
-    await newPlayer.save();
-    res.redirect('/prospects');
-  } catch (error) {
-    console.log(error);
-    res.redirect('/');
+  if (!req.body.imageUrl) {
+    delete req.body.imageUrl;
   }
+  req.body.createdBy = req.user._id;
+  const newPlayer = new Prospect(req.body);
+  await newPlayer.save();
+  res.redirect('/prospects');
 });
 
 router.get('/:prospectId', async (req, res) => {
