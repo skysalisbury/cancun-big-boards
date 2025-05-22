@@ -1,8 +1,11 @@
 <%- include('../partials/header.ejs') %>
 
+<div class="action-buttons">
+  <a href="/prospects" class="action-btn">← Return to All NBA Prospects</a>
+</div>
+
 <div class="prospect-profile">
   <img class="prospect-profile-img" src="<%= prospect.image %>" alt="Prospect Image">
-
   <h1><%= prospect.name %></h1>
 
   <p><strong><%= prospect.age %>yrs <%= prospect.origin %></strong></p>

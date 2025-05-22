@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// shortcut variable
+
 const Schema = mongoose.Schema;
 const User = require('../models/user');
 
@@ -24,10 +24,8 @@ const boardSchema = new Schema({
     type: String, 
     default: '#ffffff' },
 }, {
-  // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true
 });
-
 
 const Board = mongoose.model("Board", boardSchema);
 module.exports = Board;

@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-// shortcut variable
+
 const Schema = mongoose.Schema;
 
 const prospectSchema = new Schema({
-  //For player object make sure it is specific to the player: Name, age, wingspan, height, etc)
   name: {
       type: String,
   },  
@@ -23,10 +22,10 @@ const prospectSchema = new Schema({
     type: String,
   },
   position: {
-    type: String, //Might come back and learn how to tag.
+    type: String,
   },
   rating: {
-    type: Number, //Might come back and change to Int
+    type: Number,
   },
   image: {
     type: String,
@@ -46,7 +45,6 @@ const prospectSchema = new Schema({
     ref: 'User'
   },
 }, {
-  // Mongoose will maintain a createdAt & updatedAt property
   timestamps: true
 });
 

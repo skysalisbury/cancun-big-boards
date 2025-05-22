@@ -17,8 +17,6 @@
         <a href="/boards?user=<%= user._id %>">My Big Boards</a>
       <% } %>
       <% if (user) { %>
-        <!-- <a href="/prospects/new">ADD NBA PROSPECT</a> -->
-        <!-- <a href="/boards/new">ADD NEW BIG BOARD</a> -->
         <a href="/auth/sign-out">SIGN OUT</a>
         <span><%= user.username || user.name %></span>
       <% } else { %>
