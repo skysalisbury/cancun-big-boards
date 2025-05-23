@@ -27,6 +27,10 @@
 * Heroku
 * Trello
 
+## Attributions:
+* ChatGPT - Support and Favicon creation
+* Iconify.io - turning png from ChatGPT into a favicon.
+
 ## Getting Started/Instructions 
 1. Sign Up
 2. Click on My Big Boards Tab and create your own Big Board.
