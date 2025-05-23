@@ -16,14 +16,18 @@
   <form
     action="/boards/<%= boardId %>/prospects/<%= prospectId %>/evaluations?_method=PUT"
     method="POST"
-    class="board-prospect-details">
+    class="board-prospect-details"
+  >
     <label for="evaluation">Your Evaluation:</label>
     <textarea
       name="evaluation"
       id="evaluation"
       rows="10"
       placeholder="Write your evaluation..."
-      required><%= evaluation %></textarea>
+      required
+    >
+<%- evaluation %></textarea
+    >
 
     <div class="action-buttons">
       <button type="submit" class="action-btn">Save Evaluation</button>

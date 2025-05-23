@@ -40,9 +40,8 @@
               <% } %>
     
               <% if (user && user._id.toString() === board.createdBy._id.toString()) { %>
-                <a class="eval-button" href="/boards/<%= board._id %>/prospects/
-                  <%= item.prospect._id %>/evaluations/edit" 
-                  class="edit-eval-btn">Edit Evaluation</a>
+                <a class="eval-button" href="/boards/<%= board._id %>/prospects/<%= item.prospect._id %>/evaluations/edit" 
+                >Edit Evaluation</a>
 
                 <form action="/boards/<%= board._id %>/prospects/
                   <%= item.prospect._id %>?_method=DELETE" method="POST">
