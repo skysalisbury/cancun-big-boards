@@ -2,17 +2,17 @@
 **Cancun Big Boards** is a full-stack NBA scouting web application that allows users to create and manage personalized NBA draft big boards. Users can scout, create, evaluate, and organize NBA prospects and assign them to their own draft boards. Built with EJS for front end and MongoDB for backend.
 
 ## Screenshots:
-![Screenshot-Cancun-Big-Boards-Darkmode-LandingPage](screenshots/Screenshot%202025-05-22%20at%2011.35.23 AM.png)
+![Screenshot-Cancun-Big-Boards-Darkmode-LandingPage](public/screenshots/Screenshot%202025-05-22%20at%2011.35.23 AM.png)
 
-![Screenshot-Cancun-Big-Boards-Lightmode-LandingPage](screenshots/Screenshot%202025-05-22%20at%2011.36.21 AM.png)
+![Screenshot-Cancun-Big-Boards-Lightmode-LandingPage](public/screenshots/Screenshot%202025-05-22%20at%2011.36.21 AM.png)
 
-![Screenshot-Cancun-Big-Boards-Darkmode-ProspectsIndex](screenshots/Screenshot%202025-05-22%20at%2011.39.58 AM.png)
+![Screenshot-Cancun-Big-Boards-Darkmode-ProspectsIndex](public/screenshots/Screenshot%202025-05-22%20at%2011.39.58 AM.png)
 
-![Screenshot-Cancun-Big-Boards-Lightmode-ProspectsIndex](screenshots/Screenshot%202025-05-22%20at%2011.39.29 AM.png)
+![Screenshot-Cancun-Big-Boards-Lightmode-ProspectsIndex](public/screenshots/Screenshot%202025-05-22%20at%2011.39.29 AM.png)
 
-![Screenshot-Cancun-Big-Boards-Darkmode-Big-Board-ShowPage](screenshots/Screenshot%202025-05-22%20at%2011.41.44 AM.png)
+![Screenshot-Cancun-Big-Boards-Darkmode-Big-Board-ShowPage](public/screenshots/Screenshot%202025-05-22%20at%2011.41.44 AM.png)
 
-![Screenshot-Cancun-Big-Boards-Lightmode-Big-Board-ShowPage](screenshots/Screenshot%202025-05-22%20at%2011.42.05 AM.png)
+![Screenshot-Cancun-Big-Boards-Lightmode-Big-Board-ShowPage](public/screenshots/Screenshot%202025-05-22%20at%2011.42.05 AM.png)
 
 ## Technologies Used:
 * Node.js	
