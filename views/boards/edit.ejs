@@ -1,97 +1,84 @@
 <%- include('../partials/header.ejs') %>
+
+
 <h1>Edit Board</h1>
-<% if (user._id.toString()===board.createdBy._id.toString()) { %>
-<form
-  action="/boards/<%= board._id %>?_method=PUT" method="POST"
-  class="board-edit-form"
-  style="max-width: 800px; width: 100%">
-  <div style="grid-column: span 2">
-    <div class="board-prospect-card">
-      <div class="board-prospect-details">
-        <label for="title">Board Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value="<%= board.title %>"
-          required/>
+
+<% if (user._id.toString() === board.createdBy._id.toString()) { %>
+  <div id="editBoardWrapper" class="board-edit-wrapper">
+    <form action="/boards/<%= board._id %>?_method=PUT" method="POST" class="board-edit-form" style="max-width: 800px; width: 100%">
+
+
+      <div style="grid-column: span 2">
+        <div class="board-prospect-card">
+          <div class="board-prospect-details">
+            <label for="title">Board Title:</label>
+            <input type="text" id="title" name="title" value="<%= board.title %>" required />
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div style="grid-column: span 2">
-    <h3>Board Description</h3>
-    <% board.prospects.forEach(item => { %>
-      <li
-        class="board-prospect-card"
-        style="display: flex; flex-direction: column; align-items: stretch">
-        <div class="board-prospect-details">
-          <label style="margin-bottom: 1vmin">
-            <input
-              type="checkbox"
-              name="existingProspects"
-              value="<%= item.prospect._id %>"
-              checked/>
-            <strong><%= item.prospect.name %></strong>
-            (<%= item.prospect.position %> - <%= item.prospect.team %>)
-          </label>
-    
-          <label for="evaluation-<%= item.prospect._id %>">
-            Evaluation for <%= item.prospect.name %>:
-          </label>
-          <textarea
-          name="prospectEvaluations[<%= item.prospect._id %>]"
-          id="evaluation-<%= item.prospect._id %>"
-          rows="3"><%= item.evaluation || '' %></textarea>        
-        </div>
-      </li>
-    <% }) %>
-  </div>
 
-  <div style="grid-column: span 2">
-    <h3>Current Prospects</h3>
-    <% if (board.prospects.length > 0) { %>
-    <ul class="board-prospects-list">
-      <% board.prospects.forEach(item => { %>
-      <li
-        class="board-prospect-card"
-        style="display: flex; flex-direction: column; align-items: stretch">
-        <div class="board-prospect-details">
-          <label style="margin-bottom: 1vmin">
-            <input
-              type="checkbox"
-              name="existingProspects"
-              value="<%= item.prospect._id %>"
-              checked/>
-            <strong><%= item.prospect.name %></strong>
-            (<%= item.prospect.position %> - <%= item.prospect.team %>)
-          </label>
 
-          <label for="evaluation-<%= item.prospect._id %>"
-            >Evaluation for <%= item.prospect.name %>:</label>
-          <textarea
-            name="prospectEvaluations[<%= item.prospect._id %>]"
-            id="evaluation-
-                  <%= item.prospect._id %>"
-            rows="3">
-                  <%= item.evaluation || '' %></textarea>
+      <div style="grid-column: span 2">
+        <h3>Board Description</h3>
+        <div class="board-prospect-card">
+          <div class="board-prospect-details">
+            <label for="evaluation">Board Description:</label>
+            <textarea id="evaluation" name="evaluation" rows="4" required><%= board.evaluation || '' %></textarea>
+          </div>
         </div>
-      </li>
-      <% }) %>
-    </ul>
-    <% } else { %>
-    <p class="text-muted">No prospects currently added.</p>
-    <% } %>
+      </div>
+
+      <div style="grid-column: span 2">
+        <h3>Current Prospects</h3>
+        <% if (board.prospects.length > 0) { %>
+          <ul class="board-prospects-list">
+            <% board.prospects.forEach(item => { %>
+              <li class="board-prospect-card" style="display: flex; flex-direction: column; align-items: stretch">
+                <div class="board-prospect-details">
+                  <label style="margin-bottom: 1vmin">
+                    <input type="checkbox" name="existingProspects" value="<%= item.prospect._id %>" checked />
+                    <strong><%= item.prospect.name %></strong>
+                    (<%= item.prospect.position %> - <%= item.prospect.team %>)
+                  </label>
+
+                  <label for="evaluation-<%= item.prospect._id %>">
+                    Evaluation for <%= item.prospect.name %>:
+                  </label>
+                  <textarea
+                    name="prospectEvaluations[<%= item.prospect._id %>]"
+                    id="evaluation-<%= item.prospect._id %>"
+                    rows="3"><%= item.evaluation || '' %></textarea>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p class="text-muted">No prospects currently added.</p>
+        <% } %>
+      </div>
+
+      <div style="grid-column: span 2; display: flex; justify-content: center; gap: 2vmin;">
+        <button type="submit" class="action-btn">Update Board</button>
+        <a href="/boards/<%= board._id %>" class="action-btn">Cancel</a>
+      </div>
+    </form>
   </div>
-  <div
-    style="
-      grid-column: span 2;
-      display: flex;
-      justify-content: center;
-      gap: 2vmin;">
-    <button type="submit" class="action-btn">Update Board</button>
-    <a href="/boards/<%= board._id %>" class="action-btn">Cancel</a>
-  </div>
-</form>
 <% } else { %>
-<p class="error-msg">You do not have permission to edit this board.</p>
-<% } %> <%- include('../partials/footer.ejs') %>
+  <p class="error-msg">You do not have permission to edit this board.</p>
+<% } %>
+
+<%- include('../partials/footer.ejs') %>
+
+<script>
+  const wrapper = document.getElementById('editBoardWrapper');
+  const toggleBtn = document.getElementById('darkToggle');
+
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+  });
+</script>
